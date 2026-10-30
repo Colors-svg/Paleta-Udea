@@ -35,58 +35,7 @@ El sistema se compone de **12 tonalidades oficiales** divididas en dos grupos fu
 | **137 C** | Ámbar Cálido / Mandarina (Convocatorias & Juventud) | `#F9A12C` | `249, 161, 44` | `0, 43, 93, 0` | `34°, 82%, 97%` | AAA 9.4:1 (Grafito) |
 | **100-7 C** | Violeta Real / Índigo (Ciencia & Vanguardia TIC) | `#532D87` | `83, 45, 135` | `84, 95, 0, 0` | `264°, 66%, 53%` | AAA 8.8:1 |
 
----
-
-## 💻 Uso en Desarrollo Frontend
-
-### 1. Variables CSS (`:root`)
-```css
-:root {
-  --udea-p349: #026937;
-  --udea-p7740: #35944B;
-  --udea-p361: #43B649;
-  --udea-p375: #8DC63F;
-  --udea-p7465: #3EBDAC;
-  --udea-p334: #069A7E;
-  --udea-p7718: #0E7774;
-  --udea-p7650: #70205B;
-  --udea-p633: #137598;
-  --udea-p032: #EF434D;
-  --udea-p137: #F9A12C;
-  --udea-p1007: #532D87;
-}
-```
-
-### 2. Configuración en Tailwind CSS
-```javascript
-// tailwind.config.js
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        udea: {
-          bosque: '#026937',
-          follaje: '#35944B',
-          pradera: '#43B649',
-          lima: '#8DC63F',
-          menta: '#3EBDAC',
-          esmeralda: '#069A7E',
-          petroleo: '#0E7774',
-          purpura: '#70205B',
-          azul: '#137598',
-          coral: '#EF434D',
-          amber: '#F9A12C',
-          violeta: '#532D87',
-        }
-      }
-    }
-  }
-};
-```
-
----
-
-## 🎨 Archivo Editable de FigCraft
+## Archivo Editable de FigCraft
 
 El archivo fuente vectorial completo se incluye directamente en la raíz de este repositorio:
 * [`Manual_Marca_Paleta_Institucional.figcraft`](Manual_Marca_Paleta_Institucional.figcraft)
@@ -95,18 +44,6 @@ Para abrirlo o editarlo:
 1. Abre **FigCraft** en tu computador.
 2. Ve a `File` ▸ `Open` y selecciona `Manual_Marca_Paleta_Institucional.figcraft`.
 3. Contiene la distribución oficial, auto-layout, frames y tarjetas métricas estructuradas.
-
----
-
-## 🚀 Despliegue en GitHub Pages
-
-Este repositorio está preparado para funcionar sin proceso de construcción (*Zero-Build*):
-1. En GitHub, ve a **Settings** ▸ **Pages**.
-2. Bajo **Branch**, selecciona `main` (o `master`) y carpeta `/ (root)`.
-3. Haz clic en **Save**. En un minuto estará publicado en:  
-   `https://colors-svg.github.io/Paleta-Udea/`
-
----
 
 ## 📄 Créditos y Licencia
 * **Institución:** Universidad de Antioquia (UdeA)
