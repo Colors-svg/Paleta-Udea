@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="100%" height="100%">
+  <defs>
+    <style>
+      .udea-slab-primary {
+        font-family: 'Roboto Slab', 'Rockwell', 'Georgia', serif;
+        font-weight: 700;
+        fill: #026937;
+      }
+      .udea-reg {
+        font-family: 'Roboto', sans-serif;
+        font-size: 11px;
+        font-weight: bold;
+        fill: #026937;
+      }
+    </style>
+  </defs>
+  <!-- Símbolo Simplificado Oficial UdeA -->
+  <text x="10" y="62" class="udea-slab-primary" font-size="64" letter-spacing="-1.5px">U<tspan font-size="44" dy="-6">de</tspan><tspan font-size="64" dy="6">A</tspan></text>
+  <text x="180" y="24" class="udea-reg">®</text>
+</svg>

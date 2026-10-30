@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Cromático Institucional — Universidad de Antioquia (UdeA)</title>
+  <meta name="description" content="Manual de especificación técnica de color, correspondencia Pantone PMS, fórmulas digitales sRGB, valores de impresión CMYK y tokens de diseño para la Universidad de Antioquia.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/img/udea-simbolo-simplificado.svg">
+</head>
+<body>
+
+  <!-- Línea superior verde institucional -->
+  <div class="brand-top-bar"></div>
+
+  <!-- Barra de navegación fija con identidad UdeA -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="assets/img/udea-simbolo-simplificado.svg" alt="Escudo UdeA" class="navbar-logo">
+        <div class="navbar-titles">
+          <span class="navbar-title">Universidad de Antioquia</span>
+          <span class="navbar-subtitle">Sistema de Identidad Visual · Manual de Color</span>
+        </div>
+      </a>
+
+      <div class="navbar-actions">
+        <a href="#sandbox" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          Simulador UI
+        </a>
+        <a href="#export" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Tokens & Código
+        </a>
+        <a href="Manual_Marca_Paleta_Institucional.figcraft" download class="btn btn-primary" title="Descargar archivo editable nativo para FigCraft">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Descargar .figcraft
+        </a>
+        <a href="https://github.com/Colors-svg/Paleta-Udea" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-icon-only" title="Ver repositorio en GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido Central -->
+  <main class="main-wrapper">
+
+    <!-- Header Oficial de la Guía -->
+    <header class="page-header">
+      <div class="badge-tag">SISTEMA CROMÁTICO OFICIAL · GUÍA DE MARCA UDEA</div>
+      <h1 class="page-title">Manual de Especificación de Color Institucional</h1>
+      <p class="page-subtitle">
+        Muestrario oficial de correspondencia Pantone® Matching System (PMS), fórmulas digitales (HEX, RGB, HSB) y conversión normalizada para impresión en cuatricomía (CMYK). Incluye degradación en escala de valor tonal al 100%, 75%, 50% y 25% para diseño de marca, interfaces y publicaciones institucionales.
+      </p>
+
+      <div class="stats-bar">
+        <div class="stat-pill"><span class="stat-dot"></span> 12 Tonalidades Oficiales</div>
+        <div class="stat-pill">7 Primarios Institucionales</div>
+        <div class="stat-pill">5 Secundarios de Acento</div>
+        <div class="stat-pill">WCAG 2.1 AAA / AA Calibrado</div>
+        <div class="stat-pill">Norma: Pantone Coated / FOGRA39</div>
+      </div>
+    </header>
+
+    <!-- Barra de Herramientas, Búsqueda y Filtros -->
+    <section class="toolbar-panel">
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="search-input" placeholder="Buscar por código Pantone, nombre (ej: 349, bosque), HEX..." autocomplete="off">
+      </div>
+
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">Todos (12)</button>
+        <button class="filter-btn" data-filter="primary">Gama Primaria (7)</button>
+        <button class="filter-btn" data-filter="secondary">Gama Secundaria (5)</button>
+      </div>
+
+      <div class="quick-format-selector">
+        <span>1-Click Copiar:</span>
+        <div class="format-pill-group">
+          <button class="format-pill active" data-format="hex">HEX</button>
+          <button class="format-pill" data-format="rgb">RGB</button>
+          <button class="format-pill" data-format="cmyk">CMYK</button>
+          <button class="format-pill" data-format="hsb">HSB</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cuadrícula Principal de Colores (Diseño Fiel a FigCraft en 2 Columnas) -->
+    <div class="palettes-grid">
+
+      <!-- Columna Izquierda: Gama Primaria Institucional (7 tonos verdes) -->
+      <section class="palette-column" id="section-primary">
+        <div class="section-header">
+          <h2 class="section-title primary">GAMA PRINCIPAL INSTITUCIONAL (7 TONOS)</h2>
+          <p class="section-subtitle">Identidad base, ecología, sostenibilidad y presencia institucional oficial</p>
+        </div>
+        <div id="primary-list" class="palette-column"></div>
+      </section>
+
+      <!-- Columna Derecha: Gama Secundaria (5 tonos) + Guías de Normativa -->
+      <section class="palette-column" id="section-secondary">
+        <div class="section-header">
+          <h2 class="section-title secondary">GAMA SECUNDARIA & ACENTOS (5 TONOS)</h2>
+          <p class="section-subtitle">Acentos funcionales, datos, convocatorias, tecnología y contraste</p>
+        </div>
+        <div id="secondary-list" class="palette-column"></div>
+
+        <!-- Tarjeta Guía 1: Jerarquía 60 / 30 / 10 -->
+        <div class="guide-card">
+          <div class="guide-accent-strip primary"></div>
+          <div class="guide-body">
+            <h3 class="guide-title">NORMATIVA DE APLICACIÓN Y RATIO DE USO (60 / 30 / 10)</h3>
+            <ul class="guide-list">
+              <li><strong>60% Dominante Primario:</strong> Verdes (349 C, 7740 C, 334 C) y Neutros claros (#F8FAFC) para estructurar el 60% del espacio visual de cualquier composición.</li>
+              <li><strong>30% Soporte & Contenido:</strong> Gama esmeralda, menta y neutros oscuros (#0F172A) en tipografía, contenedores, tarjetas y diagramas.</li>
+              <li><strong>10% Acento & Interacción:</strong> Gama secundaria (137 C ámbar, 032 C coral, 633 C azul) reservada estrictamente a botones de acción (CTA), estados y gráficos.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tarjeta Guía 2: Accesibilidad Digital WCAG 2.1 -->
+        <div class="guide-card">
+          <div class="guide-accent-strip secondary"></div>
+          <div class="guide-body">
+            <h3 class="guide-title">ACCESIBILIDAD DIGITAL WCAG 2.1 & PERFILES DE SALIDA</h3>
+            <ul class="guide-list">
+              <li><strong>Contraste Alto (AAA):</strong> Fondos oscuros 349 C, 7718 C, 7650 C y 100-7 C requieren tipografía blanca pura (#FFFFFF) para superar un ratio de contraste de 7:1.</li>
+              <li><strong>Contraste Claro (AA):</strong> Fondos luminosos 375 C lima, 7465 C menta y 137 C ámbar exigen texto grafito oscuro (#0F172A) con ratio superior a 4.5:1.</li>
+              <li><strong>Impresión Offset / Digital:</strong> Usar tintas directas Pantone Formula Guide Coated o separación cuatricromía calibrada bajo estándar FOGRA39.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- SECCIÓN 3: SIMULADOR DE COMPONENTES UI EN VIVO -->
+    <section class="content-section" id="sandbox">
+      <div class="section-headline">
+        <h3>Simulador Interactivo de Componentes UI</h3>
+        <p>Selecciona cualquier tonalidad de la paleta para previsualizar en tiempo real su comportamiento sobre componentes digitales institucionales.</p>
+      </div>
+
+      <div class="sandbox-controls">
+        <span class="sandbox-label">Color Activo:</span>
+        <div class="color-dots-picker" id="sandbox-dots"></div>
+        <span id="sandbox-selected-name" style="font-size: 13px; font-weight: 700; color: #0F172A; margin-left: auto;"></span>
+      </div>
+
+      <div class="sandbox-preview-grid">
+        <!-- Caja 1: Botones & Acciones -->
+        <div class="preview-box">
+          <div class="preview-box-title">Botones de Acción (CTAs)</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+            <button id="demo-btn-primary" class="btn" style="padding: 10px 18px; font-size: 13px;">Botón Oficial</button>
+            <button id="demo-btn-secondary" class="btn" style="background: transparent; border-width: 2px; padding: 10px 18px; font-size: 13px;">Acción Secundaria</button>
+          </div>
+        </div>
+
+        <!-- Caja 2: Tarjeta / Alerta Notificatoria -->
+        <div class="preview-box">
+          <div class="preview-box-title">Alerta Institucional / Destacado</div>
+          <div id="demo-alert" style="border-left: 6px solid #026937; padding: 12px 16px; border-radius: 8px; background-color: #FFFFFF; transition: all 0.2s;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+              <span id="demo-badge" style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 4px;">PANTONE</span>
+              <span style="font-size: 11px; color: #64748B;">Portal UdeA</span>
+            </div>
+            <p style="font-size: 12px; color: #0F172A; font-weight: 600;">Convocatoria de Investigación y Consultoría CIC 2026</p>
+          </div>
+        </div>
+
+        <!-- Caja 3: Métrica / KPI -->
+        <div class="preview-box">
+          <div class="preview-box-title">Indicador de Rendimiento / Dato Clave</div>
+          <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; padding: 16px; border-radius: 10px;">
+            <div style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase;">Proyectos Activos UdeA</div>
+            <div id="demo-kpi-value" style="font-size: 32px; font-weight: 800; line-height: 1.1; margin-top: 4px;">+1,420</div>
+            <div style="font-size: 11px; color: #10B981; font-weight: 600; margin-top: 4px;">↑ 18.4% Crecimiento interanual</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: EXPORTADOR DE TOKENS Y CÓDIGO -->
+    <section class="content-section" id="export">
+      <div class="section-headline">
+        <h3>Exportador de Tokens y Configuración para Desarrolladores</h3>
+        <p>Copia y pega la paleta completa en tu flujo de trabajo de Frontend (CSS, Tailwind CSS, SCSS o W3C Design Tokens).</p>
+      </div>
+
+      <div class="export-tabs">
+        <button class="export-tab-btn active" data-format="css">CSS Custom Properties</button>
+        <button class="export-tab-btn" data-format="tailwind">Tailwind Config</button>
+        <button class="export-tab-btn" data-format="scss">SCSS Variables</button>
+        <button class="export-tab-btn" data-format="json">JSON Tokens (W3C)</button>
+      </div>
+
+      <div class="code-container">
+        <button class="copy-code-btn" id="copy-export-code">Copiar Código Completo</button>
+        <pre><code id="export-code">/* Cargando tokens... */</code></pre>
+      </div>
+    </section>
+
+    <!-- Footer Bar Fiel al Tablero FigCraft -->
+    <footer class="page-footer">
+      <div class="footer-left">
+        FigCraft Brand System · Archivo nativo .figcraft · Especificación y Fórmulas Certificadas
+      </div>
+      <div class="footer-right">
+        Documento Oficial de Marca V1.0 · Universidad de Antioquia (UdeA)
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Notificación Toast Flotante -->
+  <div class="toast-notification" id="toast">
+    <span class="toast-dot"></span>
+    <span id="toast-text">Copiado al portapapeles</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
