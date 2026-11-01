@@ -390,7 +390,7 @@ body {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-card);
   border-radius: 16px;
-  height: 132px;
+  min-height: 132px;
   display: flex;
   overflow: hidden;
   box-shadow: var(--shadow-card);
@@ -536,10 +536,10 @@ body {
   margin-top: 2px;
 }
 
-/* Píldoras Métricas (HEX, RGB, CMYK, HSB) */
+/* Píldoras Métricas (HEX, RGB, CMYK, HSB) — auto-fit: si no caben, bajan de fila */
 .metrics-row {
   display: grid;
-  grid-template-columns: 108px 114px 126px 98px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 104px), 1fr));
   gap: 10px;
 }
 
@@ -739,7 +739,7 @@ body {
 
 .sandbox-preview-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 24px;
 }
 
@@ -880,4 +880,319 @@ body {
   height: 8px;
   border-radius: 50%;
   background-color: #10B981;
+}
+
+/* ==========================================================================
+   RESPONSIVE MÓVIL — Paleta UdeA
+   Breakpoints: 1024px (tablet landscape), 768px (tablet/móvil grande),
+   480px (móvil pequeño). Sin cambios de JS: solo CSS.
+   ========================================================================== */
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+}
+
+img, svg {
+  max-width: 100%;
+}
+
+#sandbox-selected-name {
+  margin-left: auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Desktop angosto (1400px): títulos a 2 líneas en vez de recorte ---------- */
+@media (max-width: 1400px) {
+  .card-title,
+  .card-role {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* ---------- Tablet (860px): navbar solo-iconos si no caben las etiquetas ---------- */
+@media (max-width: 860px) {
+  .navbar-actions .btn .btn-label {
+    display: none;
+  }
+
+  .navbar-actions .btn {
+    padding: 8px;
+  }
+
+  .navbar-subtitle {
+    display: none;
+  }
+}
+
+/* ---------- Tablet landscape y menor (1024px) ---------- */
+@media (max-width: 1024px) {
+  .main-wrapper {
+    padding: 24px 20px 0 20px;
+  }
+
+  .page-title {
+    font-size: clamp(24px, 4.5vw, 32px);
+  }
+
+  .toolbar-panel {
+    align-items: stretch;
+  }
+
+  .search-box {
+    max-width: none;
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------- Tablet / móvil grande (768px) ---------- */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 48px;
+  }
+
+  .navbar {
+    padding: 10px 14px;
+  }
+
+  .navbar-container {
+    gap: 10px;
+  }
+
+  .navbar-brand {
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .navbar-logo {
+    height: 32px;
+  }
+
+  .navbar-titles {
+    min-width: 0;
+  }
+
+  .navbar-title {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .navbar-subtitle {
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .navbar-actions .btn {
+    padding: 8px 10px;
+    min-height: 40px;
+  }
+
+  .main-wrapper {
+    padding: 20px 14px 0 14px;
+  }
+
+  .page-title {
+    font-size: clamp(22px, 6vw, 28px);
+    line-height: 1.2;
+  }
+
+  .page-subtitle {
+    font-size: 13px;
+  }
+
+  .stats-bar {
+    gap: 8px;
+  }
+
+  .stat-pill {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .toolbar-panel {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .search-box {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .filter-tabs {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-height: 36px;
+  }
+
+  .quick-format-selector {
+    flex-wrap: wrap;
+  }
+
+  .format-pill {
+    padding: 8px 12px;
+    min-height: 36px;
+  }
+
+  .palettes-grid {
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .card-content {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .metrics-row {
+    gap: 8px;
+  }
+
+  .metric-pill {
+    padding: 8px 10px;
+    min-height: 44px;
+  }
+
+  .content-section {
+    padding: 18px 14px;
+    margin-bottom: 24px;
+  }
+
+  .section-headline h3 {
+    font-size: 16px;
+  }
+
+  .sandbox-preview-grid {
+    gap: 16px;
+  }
+
+  .preview-box {
+    padding: 14px;
+    min-width: 0;
+  }
+
+  .export-tabs {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .export-tab-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-height: 40px;
+  }
+
+  .code-container {
+    padding: 56px 14px 14px 14px;
+  }
+
+  .code-container pre {
+    font-size: 11px;
+  }
+
+  .page-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 14px 16px;
+    margin-top: 32px;
+  }
+
+  .toast-notification {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ---------- Móvil pequeño (480px) ---------- */
+@media (max-width: 480px) {
+  /* Solo iconos en navbar para evitar desborde */
+  .navbar-actions .btn .btn-label {
+    display: none;
+  }
+
+  .navbar-actions .btn {
+    padding: 8px;
+  }
+
+  .navbar-subtitle {
+    display: none;
+  }
+
+  .badge-tag {
+    font-size: 9px;
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .metrics-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .metric-value {
+    font-size: 10px;
+  }
+
+  .metric-pill.pill-hex .metric-value {
+    font-size: 11px;
+  }
+
+  .card-swatches {
+    height: 84px;
+  }
+
+  .swatch-solid {
+    padding: 10px;
+  }
+
+  .pantone-code {
+    font-size: 16px;
+  }
+
+  .swatch-tint {
+    flex: 1;
+    width: auto;
+  }
+
+  .color-dot {
+    width: 32px;
+    height: 32px;
+  }
+
+  #sandbox-selected-name {
+    margin-left: 0;
+    flex-basis: 100%;
+    white-space: normal;
+  }
 }
