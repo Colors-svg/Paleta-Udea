@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupQuickFormat();
   setupSandbox();
   setupExporter();
+  initLogoStudio();
 });
 
 // Renderizar tarjetas de color
@@ -502,4 +503,360 @@ function setupExporter() {
 
   // Cargar CSS por defecto
   updateCode('css');
+}
+
+/* ==========================================================================
+   MÓDULO: ESTUDIO VECTORIAL Y PERSONALIZADOR DE MARCA UDEA
+   ========================================================================== */
+
+function initLogoStudio() {
+  const container = document.getElementById('studio-svg-container');
+  if (!container || !window.UDEA_PATHS) return;
+
+  // Estado del Estudio
+  const studioState = {
+    layout: 'horizontal', // 'horizontal' | 'vertical' | 'shield'
+    unitText: 'Facultad de Ingeniería',
+    logoColor: '#026937',
+    bgColor: 'transparent',
+    zoom: 1
+  };
+
+  // Referencias a elementos UI
+  const layoutButtons = document.querySelectorAll('#studio-layout-control .studio-seg-btn');
+  const unitSelect = document.getElementById('studio-unit-select');
+  const customWrapper = document.getElementById('studio-custom-wrapper');
+  const customInput = document.getElementById('studio-custom-text');
+  const subtextGroup = document.getElementById('studio-subtext-group');
+  const paletteChipsContainer = document.getElementById('studio-logo-colors');
+  const bgChips = document.querySelectorAll('.studio-bg-chip');
+  const currentColorHex = document.getElementById('studio-current-color-hex');
+  const currentBgHex = document.getElementById('studio-current-bg-hex');
+  const artboard = document.getElementById('studio-artboard');
+  const dimensionsLabel = document.getElementById('studio-dimensions-label');
+  const zoomLevelLabel = document.getElementById('studio-zoom-level');
+
+  // Inicializar fichas de colores del logo
+  const studioColors = [
+    { name: 'Pantone 349 C (Verde Bosque)', hex: '#026937' },
+    { name: 'Pantone 7740 C (Verde Follaje)', hex: '#35944B' },
+    { name: 'Pantone 361 C (Verde Pradera)', hex: '#43B649' },
+    { name: 'Pantone 375 C (Verde Lima)', hex: '#8DC63F' },
+    { name: 'Pantone 7465 C (Menta)', hex: '#3ABEA3' },
+    { name: 'Pantone 2695 C (Azul Noche)', hex: '#1C275C' },
+    { name: 'Pantone 2627 C (Púrpura)', hex: '#70205B' },
+    { name: 'Pantone 221 C (Magenta)', hex: '#9E0059' },
+    { name: 'Pantone 186 C (Rojo Escarlata)', hex: '#C8102E' },
+    { name: 'Pantone 137 C (Ámbar Dorado)', hex: '#FFA300' },
+    { name: 'Blanco Puro', hex: '#FFFFFF' },
+    { name: 'Negro Grafito', hex: '#0F172A' }
+  ];
+
+  if (paletteChipsContainer) {
+    paletteChipsContainer.innerHTML = '';
+    studioColors.forEach((col, idx) => {
+      const chip = document.createElement('button');
+      chip.className = 'studio-color-chip' + (idx === 0 ? ' active' : '');
+      chip.style.backgroundColor = col.hex;
+      if (col.hex === '#FFFFFF') chip.style.border = '1px solid #CBD5E1';
+      chip.title = `${col.name} (${col.hex})`;
+      chip.setAttribute('data-hex', col.hex);
+
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.studio-color-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        studioState.logoColor = col.hex;
+        if (currentColorHex) currentColorHex.textContent = col.hex;
+        renderStudioSVG();
+      });
+
+      paletteChipsContainer.appendChild(chip);
+    });
+  }
+
+  // Cambio de Layout
+  layoutButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      layoutButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      studioState.layout = btn.getAttribute('data-layout');
+
+      // Ocultar o mostrar grupo de facultad si es "shield"
+      if (subtextGroup) {
+        subtextGroup.style.display = studioState.layout === 'shield' ? 'none' : 'flex';
+      }
+
+      renderStudioSVG();
+    });
+  });
+
+  // Selector de Dependencia
+  if (unitSelect) {
+    unitSelect.addEventListener('change', () => {
+      const val = unitSelect.value;
+      if (val === 'custom') {
+        customWrapper.style.display = 'block';
+        studioState.unitText = customInput.value.trim();
+        customInput.focus();
+      } else if (val === 'none') {
+        customWrapper.style.display = 'none';
+        studioState.unitText = '';
+      } else {
+        customWrapper.style.display = 'none';
+        studioState.unitText = val;
+      }
+      renderStudioSVG();
+    });
+  }
+
+  if (customInput) {
+    customInput.addEventListener('input', () => {
+      studioState.unitText = customInput.value.trim();
+      renderStudioSVG();
+    });
+  }
+
+  // Chips de Fondo
+  bgChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      bgChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const bg = chip.getAttribute('data-bg');
+      studioState.bgColor = bg;
+
+      if (currentBgHex) {
+        currentBgHex.textContent = bg === 'transparent' ? 'Transparente' : bg;
+      }
+
+      if (bg === 'transparent') {
+        artboard.classList.add('transparent-grid');
+        artboard.style.backgroundColor = 'transparent';
+      } else {
+        artboard.classList.remove('transparent-grid');
+        artboard.style.backgroundColor = bg;
+      }
+
+      // Si el fondo es oscuro y el logo está oscuro, o viceversa, avisar sutilmente
+      renderStudioSVG();
+    });
+  });
+
+  // Controles de Zoom
+  const btnZoomIn = document.getElementById('btn-zoom-in');
+  const btnZoomOut = document.getElementById('btn-zoom-out');
+  const btnZoomReset = document.getElementById('btn-zoom-reset');
+
+  function updateZoom(newZoom) {
+    studioState.zoom = Math.max(0.5, Math.min(2.5, newZoom));
+    if (artboard) {
+      artboard.style.transform = `scale(${studioState.zoom})`;
+    }
+    if (zoomLevelLabel) {
+      zoomLevelLabel.textContent = `${Math.round(studioState.zoom * 100)}%`;
+    }
+  }
+
+  if (btnZoomIn) btnZoomIn.addEventListener('click', () => updateZoom(studioState.zoom + 0.15));
+  if (btnZoomOut) btnZoomOut.addEventListener('click', () => updateZoom(studioState.zoom - 0.15));
+  if (btnZoomReset) btnZoomReset.addEventListener('click', () => updateZoom(1));
+
+  // Generador central de SVG en string limpio
+  function generateSVGString() {
+    const pShield = window.UDEA_PATHS['escudo-emblema-horquillado'];
+    const pMainText = window.UDEA_PATHS['texto-universidad-de-antioquia'];
+    const pYear = window.UDEA_PATHS['texto-ano-1803'];
+    const color = studioState.logoColor;
+    const unit = studioState.unitText;
+    const layout = studioState.layout;
+
+    if (layout === 'horizontal') {
+      // Disposición Horizontal Oficial:
+      // Escudo al lado izquierdo (alto ~140), Bloque tipográfico centrado a la derecha
+      const hasUnit = unit && unit.length > 0;
+      const viewBoxWidth = hasUnit ? 540 : 480;
+      const viewBoxHeight = 150;
+
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" width="${viewBoxWidth}" height="${viewBoxHeight}">
+  <style>
+    .udea-fill { fill: ${color}; }
+    .udea-subtext {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      fill: ${color};
+    }
+  </style>
+  <g id="marca-udea-horizontal" class="udea-fill">
+    <!-- Emblema UdeA con Horquillado y Orla -->
+    <g transform="translate(-10, -5) scale(0.68)">
+      <path id="escudo-orla" fill-rule="evenodd" clip-rule="evenodd" d="${pShield}" />
+      <path id="ano-1803" fill-rule="evenodd" clip-rule="evenodd" d="${pYear}" />
+    </g>
+
+    <!-- Bloque Tipográfico Principal: UNIVERSIDAD DE ANTIOQUIA -->
+    <g transform="translate(42, -96) scale(0.72)">
+      <path id="texto-universidad" fill-rule="evenodd" clip-rule="evenodd" d="${pMainText}" />
+    </g>
+
+    ${hasUnit ? `
+    <!-- Dependencia / Unidad Académica Institucional -->
+    <text x="156" y="94" class="udea-subtext">${escapeXml(unit)}</text>
+    ` : ''}
+  </g>
+</svg>`;
+    } else if (layout === 'vertical') {
+      // Disposición Vertical Clásica Centrada
+      const hasUnit = unit && unit.length > 0;
+      const viewBoxWidth = 260;
+      const viewBoxHeight = hasUnit ? 300 : 265;
+
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" width="${viewBoxWidth}" height="${viewBoxHeight}">
+  <style>
+    .udea-fill { fill: ${color}; }
+    .udea-subtext-center {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-anchor: middle;
+      fill: ${color};
+    }
+  </style>
+  <g id="marca-udea-vertical" class="udea-fill">
+    <!-- Escudo, Tipografía Institucional y Año 1803 -->
+    <g transform="translate(29, 10) scale(1)">
+      <path id="escudo-orla" fill-rule="evenodd" clip-rule="evenodd" d="${pShield}" />
+      <path id="texto-universidad" fill-rule="evenodd" clip-rule="evenodd" d="${pMainText}" />
+      <path id="ano-1803" fill-rule="evenodd" clip-rule="evenodd" d="${pYear}" />
+    </g>
+
+    ${hasUnit ? `
+    <!-- Subtítulo de Dependencia Centrado -->
+    <text x="130" y="278" class="udea-subtext-center">${escapeXml(unit)}</text>
+    ` : ''}
+  </g>
+</svg>`;
+    } else {
+      // Disposición Emblema Solo (Sello Heráldico puro)
+      const viewBoxWidth = 202;
+      const viewBoxHeight = 250;
+
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" width="${viewBoxWidth}" height="${viewBoxHeight}">
+  <style>
+    .udea-fill { fill: ${color}; }
+  </style>
+  <g id="emblema-udea-solo" class="udea-fill">
+    <path id="escudo-orla-horquillado" fill-rule="evenodd" clip-rule="evenodd" d="${pShield}" />
+    <path id="ano-1803" fill-rule="evenodd" clip-rule="evenodd" d="${pYear}" />
+  </g>
+</svg>`;
+    }
+  }
+
+  function escapeXml(unsafe) {
+    return unsafe.replace(/[<>&'"]/g, c => {
+      switch (c) {
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case '&': return '&amp;';
+        case '\'': return '&apos;';
+        case '"': return '&quot;';
+      }
+    });
+  }
+
+  // Renderizar en el contenedor interactivo
+  function renderStudioSVG() {
+    const svgCode = generateSVGString();
+    container.innerHTML = svgCode;
+
+    if (dimensionsLabel) {
+      if (studioState.layout === 'horizontal') {
+        dimensionsLabel.textContent = `Horizontal Oficial · ${studioState.unitText || 'Universidad de Antioquia'}`;
+      } else if (studioState.layout === 'vertical') {
+        dimensionsLabel.textContent = `Vertical Clásico · ${studioState.unitText || 'Universidad de Antioquia'}`;
+      } else {
+        dimensionsLabel.textContent = `Emblema y Sello Ornamental UdeA (1803)`;
+      }
+    }
+  }
+
+  // Inicializar estado de fondo
+  artboard.classList.add('transparent-grid');
+  renderStudioSVG();
+
+  // Acciones de Exportación
+  const btnExportSVG = document.getElementById('btn-export-svg');
+  const btnExportPNG = document.getElementById('btn-export-png');
+  const btnCopySVG = document.getElementById('btn-copy-svg');
+
+  if (btnExportSVG) {
+    btnExportSVG.addEventListener('click', () => {
+      const svgData = generateSVGString();
+      const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const cleanName = (studioState.unitText || 'UdeA').toLowerCase().replace(/[^a-z0-9]/g, '_');
+      link.download = `logo_udea_${studioState.layout}_${cleanName}.svg`;
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showToast('SVG descargado exitosamente');
+    });
+  }
+
+  if (btnCopySVG) {
+    btnCopySVG.addEventListener('click', () => {
+      const svgData = generateSVGString();
+      copyToClipboard(svgData);
+      showToast('Código SVG copiado al portapapeles');
+    });
+  }
+
+  if (btnExportPNG) {
+    btnExportPNG.addEventListener('click', () => {
+      showToast('Generando PNG en alta resolución...');
+      const svgString = generateSVGString();
+      const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+      const URL = window.URL || window.webkitURL || window;
+      const blobURL = URL.createObjectURL(svgBlob);
+      const image = new Image();
+
+      image.onload = () => {
+        const scale = 3; // Escala 3x para nitidez HD
+        const canvas = document.createElement('canvas');
+        canvas.width = image.width * scale;
+        canvas.height = image.height * scale;
+        const ctx = canvas.getContext('2d');
+
+        // Si hay fondo configurado y no es transparente, rellenarlo
+        if (studioState.bgColor && studioState.bgColor !== 'transparent') {
+          ctx.fillStyle = studioState.bgColor;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(blob => {
+          const pngUrl = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          const cleanName = (studioState.unitText || 'UdeA').toLowerCase().replace(/[^a-z0-9]/g, '_');
+          link.download = `logo_udea_${studioState.layout}_${cleanName}_hd.png`;
+          link.href = pngUrl;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(pngUrl);
+          showToast('PNG de alta resolución descargado');
+        }, 'image/png');
+
+        URL.revokeObjectURL(blobURL);
+      };
+
+      image.src = blobURL;
+    });
+  }
 }

@@ -25,6 +25,10 @@
       </a>
 
       <div class="navbar-actions">
+        <a href="#logo-studio" class="btn btn-primary" style="background-color: var(--udea-green-primary); color: #fff;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+          Estudio de Marca
+        </a>
         <a href="#sandbox" class="btn btn-secondary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
           <span class="btn-label">Simulador UI</span>
@@ -184,6 +188,151 @@
       </div>
     </section>
 
+    <!-- SECCIÓN: ESTUDIO Y PERSONALIZADOR DE MARCA UDEA (FIGCRAFT STUDIO) -->
+    <section class="content-section" id="logo-studio">
+      <div class="section-headline">
+        <div class="badge-tag" style="margin-bottom: 8px;">ESTUDIO VECTORIAL · SUITE DE IDENTIDAD INSTITUCIONAL</div>
+        <h3>Personalizador Vectorial de Marca UdeA</h3>
+        <p>Genera adaptaciones oficiales del emblema institucional con el horquillado ornamental completo de 1922 en ultra alta fidelidad. Configura disposiciones, añade unidades académicas, calibra fondos cromáticos y descarga en SVG o PNG HD.</p>
+      </div>
+
+      <div class="studio-layout">
+        <!-- Panel de Control y Parámetros -->
+        <aside class="studio-sidebar">
+          
+          <!-- Control 1: Disposición / Layout -->
+          <div class="studio-group">
+            <label class="studio-label">
+              <span>Disposición Institucional</span>
+              <span class="studio-hint">Formato de composición</span>
+            </label>
+            <div class="studio-segmented-control" id="studio-layout-control">
+              <button class="studio-seg-btn active" data-layout="horizontal">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="18" rx="1"></rect><path d="M14 6h7M14 12h7M14 18h4"></path></svg>
+                Horizontal
+              </button>
+              <button class="studio-seg-btn" data-layout="vertical">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"></circle><path d="M6 15h12M8 19h8"></path></svg>
+                Vertical
+              </button>
+              <button class="studio-seg-btn" data-layout="shield">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Emblema Solo
+              </button>
+            </div>
+          </div>
+
+          <!-- Control 2: Facultad o Unidad Académica -->
+          <div class="studio-group" id="studio-subtext-group">
+            <label class="studio-label" for="studio-unit-select">
+              <span>Facultad, Escuela o Dependencia</span>
+              <span class="studio-hint">Subtítulo secundario</span>
+            </label>
+            <select id="studio-unit-select" class="studio-select">
+              <option value="Facultad de Ingeniería">Facultad de Ingeniería</option>
+              <option value="Facultad de Medicina">Facultad de Medicina</option>
+              <option value="Facultad de Ciencias Exactas y Naturales">Facultad de Ciencias Exactas y Naturales</option>
+              <option value="Facultad de Ciencias Económicas">Facultad de Ciencias Económicas</option>
+              <option value="Facultad de Derecho y Ciencias Políticas">Facultad de Derecho y Ciencias Políticas</option>
+              <option value="Facultad de Educación">Facultad de Educación</option>
+              <option value="Facultad de Comunicaciones y Filología">Facultad de Comunicaciones y Filología</option>
+              <option value="Facultad de Ciencias Sociales y Humanas">Facultad de Ciencias Sociales y Humanas</option>
+              <option value="Facultad de Artes">Facultad de Artes</option>
+              <option value="Facultad de Ciencias Agrarias">Facultad de Ciencias Agrarias</option>
+              <option value="Facultad de Odontología">Facultad de Odontología</option>
+              <option value="Facultad de Enfermería">Facultad de Enfermería</option>
+              <option value="Facultad Nacional de Salud Pública">Facultad Nacional de Salud Pública</option>
+              <option value="Escuela de Idiomas">Escuela de Idiomas</option>
+              <option value="Escuela Interamericana de Bibliotecología">Escuela Interamericana de Bibliotecología</option>
+              <option value="Escuela de Nutrición y Dietética">Escuela de Nutrición y Dietética</option>
+              <option value="Vicerrectoría de Investigación">Vicerrectoría de Investigación</option>
+              <option value="Comité de Investigaciones · CIC">Comité de Investigaciones · CIC</option>
+              <option value="custom">✏️ Escribir texto personalizado...</option>
+              <option value="none">Sin dependencia (Solo UdeA)</option>
+            </select>
+
+            <div id="studio-custom-wrapper" style="display: none; margin-top: 8px;">
+              <input type="text" id="studio-custom-text" class="studio-input" placeholder="Ej: Laboratorio de Bioingeniería" value="Facultad de Ingeniería" maxlength="60">
+            </div>
+          </div>
+
+          <!-- Control 3: Color del Logo & Tipografía -->
+          <div class="studio-group">
+            <div class="studio-label-row">
+              <label class="studio-label">Color de Línea / Relleno</label>
+              <span id="studio-current-color-hex" class="studio-color-tag">#026937</span>
+            </div>
+            <div class="studio-palette-chips" id="studio-logo-colors">
+              <!-- Se inyectan las fichas oficiales dinámicamente -->
+            </div>
+          </div>
+
+          <!-- Control 4: Fondo del Lienzo -->
+          <div class="studio-group">
+            <div class="studio-label-row">
+              <label class="studio-label">Fondo de Composición</label>
+              <span id="studio-current-bg-hex" class="studio-color-tag">Transparente</span>
+            </div>
+            <div class="studio-bg-chips" id="studio-bg-colors">
+              <button class="studio-bg-chip active" data-bg="transparent" title="Fondo Transparente (Ajedrez)"></button>
+              <button class="studio-bg-chip" data-bg="#026937" title="Verde Institucional (#026937)" style="background: #026937;"></button>
+              <button class="studio-bg-chip" data-bg="#0F172A" title="Negro Grafito (#0F172A)" style="background: #0F172A;"></button>
+              <button class="studio-bg-chip" data-bg="#FFFFFF" title="Blanco Puro (#FFFFFF)" style="background: #FFFFFF; border: 1px solid #CBD5E1;"></button>
+              <button class="studio-bg-chip" data-bg="#70205B" title="Púrpura UdeA (#70205B)" style="background: #70205B;"></button>
+              <button class="studio-bg-chip" data-bg="#F8FAFC" title="Gris Pálido (#F8FAFC)" style="background: #F8FAFC; border: 1px solid #CBD5E1;"></button>
+            </div>
+          </div>
+
+          <!-- Acciones de Exportación -->
+          <div class="studio-group studio-actions-group">
+            <label class="studio-label">Exportación para Producción</label>
+            <div class="studio-btn-stack">
+              <button id="btn-export-svg" class="btn btn-primary studio-export-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Descargar SVG Vectorial Puro
+              </button>
+              <button id="btn-export-png" class="btn btn-secondary studio-export-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                Descargar PNG (Alta Resolución)
+              </button>
+              <button id="btn-copy-svg" class="btn btn-secondary studio-export-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copiar Marcado SVG
+              </button>
+            </div>
+          </div>
+
+        </aside>
+
+        <!-- Lienzo de Previsualización en Vivo (FigCraft Stage) -->
+        <main class="studio-stage-wrapper">
+          <div class="studio-stage-toolbar">
+            <div class="studio-stage-meta">
+              <span class="studio-status-dot"></span>
+              <span id="studio-dimensions-label">Previsualización Vectorial Activa · 100% Escala</span>
+            </div>
+            <div class="studio-stage-zoom">
+              <button class="studio-mini-btn" id="btn-zoom-out" title="Reducir">–</button>
+              <span id="studio-zoom-level">100%</span>
+              <button class="studio-mini-btn" id="btn-zoom-in" title="Aumentar">+</button>
+              <button class="studio-mini-btn" id="btn-zoom-reset" title="Restablecer">1:1</button>
+            </div>
+          </div>
+
+          <div class="studio-stage-viewport" id="studio-viewport">
+            <div class="studio-artboard" id="studio-artboard">
+              <!-- El SVG dinámico se inyectará aquí -->
+              <div id="studio-svg-container"></div>
+            </div>
+          </div>
+
+          <div class="studio-footer-hint">
+            <span>Heráldica institucional protegida · Grabado de Horacio Rodríguez (1922) · Trazo de alta fidelidad</span>
+          </div>
+        </main>
+      </div>
+    </section>
+
     <!-- SECCIÓN 4: EXPORTADOR DE TOKENS Y CÓDIGO -->
     <section class="content-section" id="export">
       <div class="section-headline">
@@ -222,6 +371,7 @@
     <span id="toast-text">Copiado al portapapeles</span>
   </div>
 
+  <script src="assets/udea-paths.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -847,7 +847,335 @@ body {
   color: var(--udea-green-primary);
 }
 
-/* Toast flotante de notificación */
+/* ==========================================================================
+   ESTUDIO Y PERSONALIZADOR DE MARCA UDEA (FIGCRAFT STUDIO)
+   ========================================================================== */
+
+.studio-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 28px;
+  align-items: start;
+  margin-top: 16px;
+}
+
+@media (max-width: 1024px) {
+  .studio-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Barra lateral de controles */
+.studio-sidebar {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.studio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.studio-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.studio-hint {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.studio-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.studio-color-tag {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--udea-green-primary);
+  background-color: var(--bg-surface-subtle);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* Control segmentado */
+.studio-segmented-control {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: var(--bg-surface-subtle);
+  padding: 4px;
+  border-radius: 10px;
+  gap: 4px;
+}
+
+.studio-seg-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.studio-seg-btn:hover {
+  color: var(--text-main);
+}
+
+.studio-seg-btn.active {
+  background-color: var(--bg-surface);
+  color: var(--udea-green-primary);
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* Select e Input */
+.studio-select,
+.studio-input {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  color: var(--text-main);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.studio-select:focus,
+.studio-input:focus {
+  border-color: var(--udea-green-primary);
+  box-shadow: 0 0 0 3px rgba(2, 105, 55, 0.12);
+}
+
+/* Chips de Paleta de Color */
+.studio-palette-chips {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.studio-color-chip {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.studio-color-chip:hover {
+  transform: scale(1.12);
+  z-index: 2;
+}
+
+.studio-color-chip.active {
+  border-color: var(--text-main);
+  box-shadow: 0 0 0 2px #fff, 0 2px 6px rgba(0, 0, 0, 0.25);
+  transform: scale(1.08);
+}
+
+/* Chips de Fondo */
+.studio-bg-chips {
+  display: flex;
+  gap: 10px;
+}
+
+.studio-bg-chip {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.studio-bg-chip[data-bg="transparent"] {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(45deg, #e2e8f0 25%, transparent 25%),
+    linear-gradient(-45deg, #e2e8f0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e2e8f0 75%),
+    linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+  border: 1px solid var(--border-card);
+}
+
+.studio-bg-chip.active {
+  border-color: var(--udea-green-primary);
+  box-shadow: 0 0 0 2px #fff, 0 2px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+/* Botones de Exportación */
+.studio-actions-group {
+  padding-top: 12px;
+  border-top: 1px solid var(--border-card);
+}
+
+.studio-btn-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.studio-export-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+/* Lienzo de Previsualización (Stage FigCraft) */
+.studio-stage-wrapper {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.studio-stage-toolbar {
+  padding: 12px 18px;
+  background-color: var(--bg-surface-subtle);
+  border-bottom: 1px solid var(--border-card);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.studio-stage-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.studio-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+}
+
+.studio-stage-zoom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.studio-mini-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text-main);
+  transition: all 0.15s ease;
+}
+
+.studio-mini-btn:hover {
+  background: var(--bg-surface-muted);
+}
+
+/* Viewport con patrón de cuadrícula FigCraft */
+.studio-stage-viewport {
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background-color: #F1F5F9;
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+  overflow: auto;
+}
+
+/* Artboard donde se renderiza el SVG */
+.studio-artboard {
+  border-radius: 12px;
+  padding: 36px 48px;
+  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.12), 0 4px 12px rgba(15, 23, 42, 0.04);
+  transition: background-color 0.25s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.studio-artboard.transparent-grid {
+  background-color: #ffffff !important;
+  background-image: 
+    linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+    linear-gradient(-45deg, transparent 75%, #f1f5f9 75%) !important;
+  background-size: 14px 14px !important;
+  background-position: 0 0, 0 7px, 7px -7px, -7px 0px !important;
+}
+
+#studio-svg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+#studio-svg-container svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.04));
+}
+
+.studio-footer-hint {
+  padding: 10px 18px;
+  background-color: var(--bg-surface-subtle);
+  border-top: 1px solid var(--border-card);
+  font-size: 11px;
+  color: var(--text-light);
+  text-align: center;
+}
+
 .toast-notification {
   position: fixed;
   bottom: 24px;
