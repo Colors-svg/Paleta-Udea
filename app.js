@@ -900,7 +900,7 @@ function initLogoStudio() {
   </g>
 </svg>`;
     } else if (layout === 'shield') {
-      // Disposición Emblema Solo (Sello Heráldico puro, año acercado al óvalo)
+      // Disposición Emblema Solo (Sello Heráldico puro, año pegado al ornamento: no hay bloque UNIVERSIDAD debajo)
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 202 234" width="202" height="234">
   <title>Emblema UdeA — sello heráldico</title>
   <desc>Escudo ovalado con ancla, cinta de Medellín y blandones, orla de horquillado ornamental y año 1803. Sin leyendas.</desc>
