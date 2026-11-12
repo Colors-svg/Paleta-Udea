@@ -1017,7 +1017,7 @@ body {
 /* Control segmentado */
 .studio-segmented-control {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   background-color: var(--bg-surface-subtle);
   padding: 4px;
   border-radius: 10px;
@@ -1265,6 +1265,12 @@ body {
   max-width: 100%;
   height: auto;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.04));
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+#studio-svg-container.switching svg {
+  opacity: 0;
+  transform: translateY(8px) scale(0.985);
 }
 
 .studio-footer-hint {
@@ -1713,6 +1719,10 @@ img, svg {
     font-size: 10.5px;
     padding: 8px 4px;
     gap: 4px;
+  }
+
+  .studio-segmented-control {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .studio-stage-toolbar {

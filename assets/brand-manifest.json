@@ -38,12 +38,12 @@
   },
   "layouts": {
     "horizontal": {
-      "rule": "Uso preferente y OBLIGATORIO para unidades. Dependencia centrada abajo respecto al logosímbolo completo.",
+      "rule": "Uso preferente y OBLIGATORIO para unidades. Dependencia centrada abajo en el eje del bloque tipográfico.",
       "viewBox": "0 0 490 150",
       "shield": { "transform": "translate(-21.9, -2.4) scale(0.82)", "path": "escudo-emblema-horquillado" },
       "wordmark": { "transform": "translate(110, -329.1) scale(1.95)", "path": "texto-universidad-de-antioquia" },
       "year": null,
-      "unit": { "x": 245, "y": 134, "anchor": "middle", "font": "Times New Roman Bold", "sizes": { "default": 27, "medium": 22, "long": 18 }, "colorLightBg": "#35944B", "colorDarkBg": "#FFFFFF" }
+      "unit": { "x": 307, "y": 134, "anchor": "middle", "font": "Times New Roman Bold", "sizes": { "default": 27, "medium": 22, "long": 18, "min": 13 }, "maxWidth": 340, "colorLightBg": "#35944B (normativo) o color del tema si es personalizado", "colorDarkBg": "#FFFFFF" }
     },
     "vertical": {
       "rule": "Uso solemne. PROHIBIDO colocar dependencias debajo.",
@@ -52,9 +52,15 @@
       "unit": null
     },
     "shield": {
-      "rule": "Sello heráldico puro, sin leyendas.",
-      "viewBox": "0 0 202 250",
-      "paths": ["escudo-emblema-horquillado", "texto-ano-1803"]
+      "rule": "Sello heráldico puro, sin leyendas. Año acercado al óvalo.",
+      "viewBox": "0 0 202 234",
+      "paths": ["escudo-emblema-horquillado", "texto-ano-1803 (translate(0,-18))"]
+    },
+    "simple": {
+      "rule": "Marca simplificada UdeA (Roboto Slab Bold). Avatares y espacios reducidos, sin dependencias.",
+      "viewBox": "0 28 314 104",
+      "paths": ["marca-udea-simplificada"],
+      "unit": null
     }
   },
   "canonical": {

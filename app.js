@@ -710,20 +710,28 @@ function initLogoStudio() {
 
   updateNormFlag(studioState.logoColor);
 
-  // Cambio de Layout
+  // Cambio de Layout con transición suave entre composiciones
+  let switchTimer = null;
   layoutButtons.forEach(btn => {
     btn.addEventListener('click', () => {
+      const next = btn.getAttribute('data-layout');
+      if (next === studioState.layout) return;
       layoutButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      studioState.layout = btn.getAttribute('data-layout');
+      studioState.layout = next;
 
       // La dependencia SOLO acompaña a la versión horizontal (Manual §2.1):
-      // en vertical (prohibido §2.2) y en emblema solo se oculta el grupo.
+      // en vertical (prohibido §2.2), emblema y simplificado se oculta el grupo.
       if (subtextGroup) {
         subtextGroup.style.display = studioState.layout === 'horizontal' ? 'flex' : 'none';
       }
 
-      renderStudioSVG();
+      if (container) container.classList.add('switching');
+      clearTimeout(switchTimer);
+      switchTimer = setTimeout(() => {
+        renderStudioSVG();
+        if (container) container.classList.remove('switching');
+      }, 180);
     });
   });
 
@@ -810,25 +818,29 @@ function initLogoStudio() {
     return ((0.2126 * r + 0.7152 * g + 0.0722 * b) / 255) < 0.35;
   }
 
-  // Subtítulo de dependencia: 7740 C sobre fondos claros, blanco sobre oscuros (Manual §4)
+  // Subtítulo de dependencia: 7740 C sobre fondos claros, blanco sobre oscuros (Manual §4).
+  // Con color personalizado (experimental), el subtítulo sigue el tema elegido.
   function unitFill() {
     const bg = studioState.bgColor;
-    if (bg && bg !== 'transparent' && (DARK_BGS.includes(bg) || isDarkHex(bg))) return '#FFFFFF';
+    const darkBg = bg && bg !== 'transparent' && (DARK_BGS.includes(bg) || isDarkHex(bg));
+    if (darkBg) return '#FFFFFF';
+    if (!isNormative(studioState.logoColor)) return studioState.logoColor;
     return '#35944B';
   }
 
-  // Tamaño del subtítulo según longitud para que siempre quepa (Times New Roman Bold)
+  // Tamaño del subtítulo: cabe siempre en la franja del bloque tipográfico (140–480)
   function unitFontSize(text) {
     const len = String(text || '').length;
-    if (len <= 24) return 27;
-    if (len <= 36) return 22;
-    return 18;
+    const base = len <= 24 ? 27 : len <= 36 ? 22 : 18;
+    const fit = 340 / (0.52 * Math.max(len, 1));
+    return Math.max(13, Math.min(base, Math.floor(fit)));
   }
 
   function generateSVGString() {
     const pShield = window.UDEA_PATHS['escudo-emblema-horquillado'];
     const pMainText = window.UDEA_PATHS['texto-universidad-de-antioquia'];
     const pYear = window.UDEA_PATHS['texto-ano-1803'];
+    const pSimple = window.UDEA_PATHS['marca-udea-simplificada'];
     const color = studioState.logoColor;
     const unit = studioState.unitText;
     const layout = studioState.layout;
@@ -837,7 +849,7 @@ function initLogoStudio() {
 
     if (layout === 'horizontal') {
       // Horizontal oficial: escudo a la izquierda, bloque tipográfico a la derecha
-      // y dependencia centrada abajo respecto al logosímbolo completo (Manual §2.1).
+      // y dependencia centrada abajo en el eje del bloque tipográfico (Manual §2.1).
       const hasUnit = unit && unit.length > 0;
       const fs = unitFontSize(unit);
 
@@ -866,8 +878,8 @@ function initLogoStudio() {
     </g>
 
     ${hasUnit ? `
-    <!-- Dependencia / Unidad Académica (Times Bold 7740 C, centrada) -->
-    <text x="245" y="134" class="udea-subtext">${safeUnit}</text>
+    <!-- Dependencia / Unidad Académica (Times Bold, centrada en el bloque) -->
+    <text x="307" y="134" class="udea-subtext">${safeUnit}</text>
     ` : ''}
   </g>
 </svg>`;
@@ -888,12 +900,9 @@ function initLogoStudio() {
     </g>
   </g>
 </svg>`;
-    } else {
-      // Disposición Emblema Solo (Sello Heráldico puro)
-      const viewBoxWidth = 202;
-      const viewBoxHeight = 250;
-
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" width="${viewBoxWidth}" height="${viewBoxHeight}">
+    } else if (layout === 'shield') {
+      // Disposición Emblema Solo (Sello Heráldico puro, año acercado al óvalo)
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 202 234" width="202" height="234">
   <title>Emblema UdeA — sello heráldico</title>
   <desc>Escudo ovalado con ancla, cinta de Medellín y blandones, orla de horquillado ornamental y año 1803. Sin leyendas.</desc>
   <style>
@@ -901,7 +910,21 @@ function initLogoStudio() {
   </style>
   <g id="emblema-udea-solo" class="udea-fill">
     <path id="escudo-orla-horquillado" fill-rule="evenodd" clip-rule="evenodd" d="${pShield}" />
-    <path id="ano-1803" fill-rule="evenodd" clip-rule="evenodd" d="${pYear}" />
+    <g transform="translate(0, -18)">
+      <path id="ano-1803" fill-rule="evenodd" clip-rule="evenodd" d="${pYear}" />
+    </g>
+  </g>
+</svg>`;
+    } else {
+      // Marca Simplificada UdeA (Roboto Slab Bold, solo avatar/texto corto)
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 28 314 104" width="314" height="104">
+  <title>UdeA — marca simplificada</title>
+  <desc>Logotipo simplificado UdeA en Roboto Slab Bold. Uso informal, avatares y espacios reducidos.</desc>
+  <style>
+    .udea-fill { fill: ${color}; }
+  </style>
+  <g id="marca-udea-simplificada" class="udea-fill">
+    <path id="udea-simple" fill-rule="evenodd" clip-rule="evenodd" d="${pSimple}" />
   </g>
 </svg>`;
     }
@@ -938,8 +961,10 @@ function initLogoStudio() {
         base = `Horizontal Oficial · ${studioState.unitText || 'Universidad de Antioquia'}`;
       } else if (studioState.layout === 'vertical') {
         base = 'Vertical Clásico · uso solemne (sin dependencia)';
-      } else {
+      } else if (studioState.layout === 'shield') {
         base = 'Emblema y Sello Ornamental UdeA (1803)';
+      } else {
+        base = 'Simplificado UdeA · Roboto Slab Bold';
       }
       dimensionsLabel.textContent = lowContrast
         ? `${base} · Contraste bajo: cambia el fondo o el color`
