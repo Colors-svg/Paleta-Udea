@@ -1,0 +1,68 @@
+{
+  "brand": "Universidad de Antioquia (UdeA)",
+  "founded": 1803,
+  "version": "1.1.0",
+  "live": "https://colors-svg.github.io/Paleta-Udea/",
+  "repo": "https://github.com/Colors-svg/Paleta-Udea",
+  "docs": {
+    "agents": "AGENTS.md",
+    "manual": "MANUAL_IDENTIDAD_UDEA.md",
+    "llms": "llms.txt",
+    "colorTokens": "tokens.json"
+  },
+  "colors": {
+    "note": "Mapa rápido. Especificación completa (RGB, CMYK, HSB, tintes, WCAG) en tokens.json.",
+    "institutionalGreen": { "pantone": "349 C", "hex": "#026937", "use": "Escudo, títulos, fondos institucionales" },
+    "unitGreen": { "pantone": "7740 C", "hex": "#35944B", "use": "EXCLUSIVO para nombres de Facultades/Sedes bajo el logosímbolo" },
+    "white": { "hex": "#FFFFFF", "use": "Negativo sobre fondos oscuros" },
+    "graphite": { "hex": "#0F172A", "use": "Monotinta / texto sobre fondos claros" },
+    "pageBg": { "hex": "#F8FAFC", "use": "Fondo de página" }
+  },
+  "typography": {
+    "institutional": { "family": "Times New Roman", "weights": ["Regular", "Bold"], "use": "Logotipo UNIVERSIDAD DE ANTIOQUIA y nombres de dependencias (Bold)" },
+    "unitSubtext": { "family": "Times New Roman", "weight": "Bold", "color": "#35944B", "note": "NUNCA sans-serif" },
+    "digital": { "families": ["Roboto", "Inter", "DIN"], "use": "Párrafos, interfaces, subtítulos web" },
+    "simplifiedMark": { "family": "Roboto Slab", "weight": "Bold", "use": "Marca simplificada UdeA" }
+  },
+  "logo": {
+    "master": "assets/logo_universidad_de_antioquia.svg",
+    "programmatic": "assets/udea-paths.js",
+    "globalVar": "window.UDEA_PATHS",
+    "viewBox": "0 0 202 250",
+    "defaultColor": "#026937 (sobrescribible con la variable CSS --udea-color)",
+    "paths": [
+      { "id": "escudo-emblema-horquillado", "bbox": { "x": [36.5, 165.3], "y": [12.7, 171.9] }, "desc": "Óvalo con ancla, cinta MEDELLIN, blandones y horquillado de 1922" },
+      { "id": "texto-universidad-de-antioquia", "bbox": { "x": [15.2, 186.7], "y": [179.0, 222.8] }, "desc": "Leyenda UNIVERSIDAD DE ANTIOQUIA a dos líneas (trazada, no editable)" },
+      { "id": "texto-ano-1803", "bbox": { "x": [77.6, 124.2], "y": [229.3, 237.3] }, "desc": "Año fundacional 1803 (trazado)" }
+    ]
+  },
+  "layouts": {
+    "horizontal": {
+      "rule": "Uso preferente y OBLIGATORIO para unidades. Dependencia centrada abajo respecto al logosímbolo completo.",
+      "viewBox": "0 0 490 150",
+      "shield": { "transform": "translate(-21.9, -2.4) scale(0.82)", "path": "escudo-emblema-horquillado" },
+      "wordmark": { "transform": "translate(110, -329.1) scale(1.95)", "path": "texto-universidad-de-antioquia" },
+      "year": null,
+      "unit": { "x": 245, "y": 134, "anchor": "middle", "font": "Times New Roman Bold", "sizes": { "default": 27, "medium": 22, "long": 18 }, "colorLightBg": "#35944B", "colorDarkBg": "#FFFFFF" }
+    },
+    "vertical": {
+      "rule": "Uso solemne. PROHIBIDO colocar dependencias debajo.",
+      "viewBox": "0 0 260 258",
+      "group": { "transform": "translate(29, 10)", "paths": ["escudo-emblema-horquillado", "texto-universidad-de-antioquia", "texto-ano-1803"] },
+      "unit": null
+    },
+    "shield": {
+      "rule": "Sello heráldico puro, sin leyendas.",
+      "viewBox": "0 0 202 250",
+      "paths": ["escudo-emblema-horquillado", "texto-ano-1803"]
+    }
+  },
+  "rules": [
+    "Nunca deformar el escudo ni alterar su proporción.",
+    "El escudo solo puede ir en #026937 (claros), #FFFFFF (oscuros) o #0F172A (monotinta). Prohibidos otros colores, degradados y combinaciones.",
+    "La dependencia solo acompaña a la versión horizontal, centrada abajo, Times New Roman Bold #35944B.",
+    "Sobre fondos oscuros el logosímbolo va siempre en blanco puro.",
+    "No inventar submarcas ni alterar ancla, cinta Medellín o blandones.",
+    "Área de reserva: altura de la U (horizontal) o del bloque UNIVERSIDAD DE ANTIOQUIA (vertical). Mínimos: horizontal 130px / vertical 50px en pantalla."
+  ]
+}

@@ -97,8 +97,8 @@ La Universidad cuenta con 4 aplicaciones normadas:
 
 ## 6. Recursos Vectoriales Disponibles en este Repositorio
 
-- **SVG Maestro Oficial de Ultra Alta Fidelidad**:  
-  `assets/logo_universidad_de_antioquia.svg` (y en raíz `Universidad_de_Antioquia_Logo_Oficial.svg`).  
+- **SVG Maestro Oficial de Ultra Alta Fidelidad**:
+  `assets/logo_universidad_de_antioquia.svg`.
   Contiene los paths separados con IDs:
   - `id="escudo-emblema-horquillado"`
   - `id="texto-universidad-de-antioquia"`
@@ -108,4 +108,4 @@ La Universidad cuenta con 4 aplicaciones normadas:
 - **Tokens de Diseño y Especificaciones JSON**:  
   `tokens.json`.
 - **Estudio y Personalizador Web Interactivo**:  
-  Disponible en `index.html#logo-studio` y publicado en [https://colors-svg.github.io/Paleta-Udea/](https://colors-svg.github.io/Paleta-Udea/).
+  Disponible en `index.html#logo-studio` y publicado en [https://colors-svg.github.io/Paleta-Udea/](https://colors-svg.github.io/Paleta-Udea/). Genera las 3 composiciones con la norma ya aplicada: dependencia solo en horizontal (Times New Roman Bold `#35944B`), nunca en vertical, y escudo restringido a `#026937` / `#FFFFFF` / `#0F172A`.

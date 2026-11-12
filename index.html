@@ -7,6 +7,19 @@
   <meta name="description" content="Manual de especificación técnica de color, correspondencia Pantone PMS, fórmulas digitales sRGB, valores de impresión CMYK y tokens de diseño para la Universidad de Antioquia.">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/svg+xml" href="assets/img/udea-simbolo-simplificado.svg">
+  <link rel="alternate" type="application/json" title="Manifiesto de marca legible por máquinas (colores, logos, reglas)" href="assets/brand-manifest.json">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Universidad de Antioquia",
+    "alternateName": "UdeA",
+    "foundingDate": "1803",
+    "url": "https://colors-svg.github.io/Paleta-Udea/",
+    "logo": "https://colors-svg.github.io/Paleta-Udea/assets/logo_universidad_de_antioquia.svg",
+    "brand": "Sistema Cromático Institucional UdeA (Pantone Coated / FOGRA39)"
+  }
+  </script>
 </head>
 <body>
 
@@ -27,7 +40,7 @@
       <div class="navbar-actions">
         <a href="#logo-studio" class="btn btn-primary" style="background-color: var(--udea-green-primary); color: #fff;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
-          Estudio de Marca
+          <span class="btn-label">Estudio de Marca</span>
         </a>
         <a href="#sandbox" class="btn btn-secondary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
@@ -371,7 +384,7 @@
     <span id="toast-text">Copiado al portapapeles</span>
   </div>
 
-  <script src="assets/udea-paths.js"></script>
-  <script src="app.js"></script>
+  <script src="assets/udea-paths.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

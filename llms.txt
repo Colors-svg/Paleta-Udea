@@ -1,0 +1,26 @@
+# Paleta UdeA — Sistema Cromático Institucional (Universidad de Antioquia)
+
+> Recurso para agentes de IA y herramientas. Documentación humana en vivo:
+> https://colors-svg.github.io/Paleta-Udea/
+
+## Mapa del repositorio (archivos que un agente debe leer primero)
+
+- `Paleta-Udea/AGENTS.md` — guía de marca para agentes (reglas de oro, colores, tipografía, recursos).
+- `Paleta-Udea/MANUAL_IDENTIDAD_UDEA.md` — manual de identidad completo y normativo.
+- `Paleta-Udea/assets/brand-manifest.json` — manifiesto legible por máquinas: colores, tipografías,
+  logo vectorial (viewBox, paths con IDs y bounding boxes), geometría exacta de los 3 layouts
+  (horizontal / vertical / emblema) y reglas de uso. Incluye enlace a `tokens.json`.
+- `Paleta-Udea/tokens.json` — especificación JSON de los 12 colores (HEX, RGB, CMYK, HSB, tintes, WCAG).
+- `Paleta-Udea/assets/logo_universidad_de_antioquia.svg` — emblema maestro (horquillado 1922).
+  IDs: `escudo-emblema-horquillado`, `texto-universidad-de-antioquia`, `texto-ano-1803`.
+  Color por defecto `#026937`, sobrescribible con la variable CSS `--udea-color`.
+- `Paleta-Udea/assets/udea-paths.js` — mismos trazos como strings en `window.UDEA_PATHS`
+  (renders programáticos sin cargar el SVG).
+- `Paleta-Udea/index.html#logo-studio` — estudio interactivo que genera las 3 composiciones oficiales.
+
+## Reglas críticas (no negociables)
+
+1. Escudo solo en `#026937`, `#FFFFFF` (fondos oscuros) o `#0F172A` (monotinta).
+2. Dependencias (Facultades…) SOLO en versión horizontal, centradas abajo,
+   `Times New Roman Bold`, color `#35944B`. Nunca en la vertical, nunca en sans-serif.
+3. Nunca deformar el escudo ni alterar sus proporciones.

@@ -97,8 +97,13 @@ Este repositorio incluye las herramientas oficiales y trazados maestros del escu
    Consulta [`MANUAL_IDENTIDAD_UDEA.md`](MANUAL_IDENTIDAD_UDEA.md) para la guía completa de normas, tipografías (Times New Roman, DIN, Roboto, Playfair Display) y jerarquías oficiales.
 3. **Guía Rápida para Agentes de IA**:  
    Consulta [`AGENTS.md`](AGENTS.md) para un resumen directo de tokens, reglas de oro y endpoints vectoriales.
+   Índice rápido para herramientas: [`llms.txt`](llms.txt) · Manifiesto máquina:
+   [`assets/brand-manifest.json`](assets/brand-manifest.json) (colores, tipografías, geometría de layouts y reglas).
 4. **SVG Maestro Oficial**:  
-   Localizado en [`assets/logo_universidad_de_antioquia.svg`](assets/logo_universidad_de_antioquia.svg).
+   Localizado en [`assets/logo_universidad_de_antioquia.svg`](assets/logo_universidad_de_antioquia.svg)
+   (color por defecto `#026937`, sobrescribible con `--udea-color`; IDs `escudo-emblema-horquillado`,
+   `texto-universidad-de-antioquia`, `texto-ano-1803`). Mismos trazos como JS en
+   [`assets/udea-paths.js`](assets/udea-paths.js) (`window.UDEA_PATHS`).
 
 ---
 

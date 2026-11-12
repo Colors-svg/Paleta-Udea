@@ -1524,3 +1524,64 @@ img, svg {
     white-space: normal;
   }
 }
+
+/* ==========================================================================
+   STUDIO FIGCRAFT POLISH — focos visibles, chips normativos y móvil
+   ========================================================================== */
+
+/* Tres colores normativos (Manual §4): pastillas anchas en vez de rejilla 6-col */
+.studio-palette-chips {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.studio-color-chip {
+  aspect-ratio: auto;
+  min-height: 46px;
+  border-radius: 10px;
+}
+
+/* Foco visible coherente con el sistema (teclado + lectores) */
+.btn:focus-visible,
+.studio-seg-btn:focus-visible,
+.studio-color-chip:focus-visible,
+.studio-bg-chip:focus-visible,
+.studio-mini-btn:focus-visible,
+.export-tab-btn:focus-visible,
+.filter-btn:focus-visible,
+.format-pill:focus-visible,
+.copy-code-btn:focus-visible {
+  outline: 2px solid var(--udea-green-primary);
+  outline-offset: 2px;
+}
+
+/* Móvil: escenario compacto y segmentado legible */
+@media (max-width: 480px) {
+  .studio-sidebar {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .studio-seg-btn {
+    font-size: 10.5px;
+    padding: 8px 4px;
+    gap: 4px;
+  }
+
+  .studio-stage-toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .studio-stage-viewport {
+    min-height: 320px;
+    padding: 20px 12px;
+  }
+
+  .studio-artboard {
+    padding: 20px 16px;
+  }
+
+  .studio-footer-hint {
+    text-align: left;
+  }
+}

@@ -33,13 +33,18 @@
 ## 4. Rutas de Recursos Vectoriales
 - **SVG Oficial con Horquillado de 1922 (Ultra Alta Fidelidad)**:
   `assets/logo_universidad_de_antioquia.svg`
+  (color por defecto `#026937`; sobrescribir con la variable CSS `--udea-color`).
 - **Diccionario de Coordenadas de Trazos para Renderizado Programático**:
   `assets/udea-paths.js` (`window.UDEA_PATHS['escudo-emblema-horquillado']`, etc.)
+- **Manifiesto legible por máquinas** (colores, tipografías, geometría exacta de layouts y reglas):
+  [`assets/brand-manifest.json`](assets/brand-manifest.json) · Índice rápido: [`llms.txt`](llms.txt).
+  La página también expone esquema JSON-LD (`Organization`) en `index.html`.
 
 ---
 
 ## 5. Reglas de Oro para Agentes
 1. **Nunca deformar el escudo** ni alterar sus proporciones de aspecto.
-2. **El nombre de las dependencias** (Facultades, Escuelas, Institutos) **solo** acompaña a la versión **horizontal** del logosímbolo, centrado en la parte inferior, en `Times New Roman Bold` y color verde `#35944B` (Pantone 7740 C).
+2. **El nombre de las dependencias** (Facultades, Escuelas, Institutos) **solo** acompaña a la versión **horizontal** del logosímbolo, centrado en la parte inferior, en `Times New Roman Bold` y color verde `#35944B` (Pantone 7740 C). **Nunca** en la versión vertical y **nunca** en sans-serif (Inter/Roboto).
 3. **Sobre fondos oscuros**, el logotipo/logosímbolo debe ir siempre en blanco puro (`#FFFFFF`).
-4. **No inventar sub-marcas** ni alterar los elementos heráldicos internos (ancla, cinta Medellín, blandones).
+4. **El escudo solo admite 3 colores**: `#026937` (fondos claros), `#FFFFFF` (fondos oscuros) y `#0F172A` (monotinta). Prohibidos otros colores, degradados y combinaciones.
+5. **No inventar sub-marcas** ni alterar los elementos heráldicos internos (ancla, cinta Medellín, blandones).

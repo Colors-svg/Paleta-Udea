@@ -536,20 +536,12 @@ function initLogoStudio() {
   const dimensionsLabel = document.getElementById('studio-dimensions-label');
   const zoomLevelLabel = document.getElementById('studio-zoom-level');
 
-  // Inicializar fichas de colores del logo
+  // Colores permitidos por el Manual de Identidad §4 (Reglas de Aplicación del Color):
+  // el escudo SOLO puede ir en verde institucional, blanco (negativo) o negro (monotinta).
   const studioColors = [
-    { name: 'Pantone 349 C (Verde Bosque)', hex: '#026937' },
-    { name: 'Pantone 7740 C (Verde Follaje)', hex: '#35944B' },
-    { name: 'Pantone 361 C (Verde Pradera)', hex: '#43B649' },
-    { name: 'Pantone 375 C (Verde Lima)', hex: '#8DC63F' },
-    { name: 'Pantone 7465 C (Menta)', hex: '#3ABEA3' },
-    { name: 'Pantone 2695 C (Azul Noche)', hex: '#1C275C' },
-    { name: 'Pantone 2627 C (Púrpura)', hex: '#70205B' },
-    { name: 'Pantone 221 C (Magenta)', hex: '#9E0059' },
-    { name: 'Pantone 186 C (Rojo Escarlata)', hex: '#C8102E' },
-    { name: 'Pantone 137 C (Ámbar Dorado)', hex: '#FFA300' },
-    { name: 'Blanco Puro', hex: '#FFFFFF' },
-    { name: 'Negro Grafito', hex: '#0F172A' }
+    { name: 'Pantone 349 C (Verde Institucional · uso normal)', hex: '#026937' },
+    { name: 'Blanco Puro (negativo sobre fondos oscuros)', hex: '#FFFFFF' },
+    { name: 'Negro Grafito (monotinta / escala de grises)', hex: '#0F172A' }
   ];
 
   if (paletteChipsContainer) {
@@ -581,9 +573,10 @@ function initLogoStudio() {
       btn.classList.add('active');
       studioState.layout = btn.getAttribute('data-layout');
 
-      // Ocultar o mostrar grupo de facultad si es "shield"
+      // La dependencia SOLO acompaña a la versión horizontal (Manual §2.1):
+      // en vertical (prohibido §2.2) y en emblema solo se oculta el grupo.
       if (subtextGroup) {
-        subtextGroup.style.display = studioState.layout === 'shield' ? 'none' : 'flex';
+        subtextGroup.style.display = studioState.layout === 'horizontal' ? 'flex' : 'none';
       }
 
       renderStudioSVG();
@@ -660,7 +653,34 @@ function initLogoStudio() {
   if (btnZoomOut) btnZoomOut.addEventListener('click', () => updateZoom(studioState.zoom - 0.15));
   if (btnZoomReset) btnZoomReset.addEventListener('click', () => updateZoom(1));
 
-  // Generador central de SVG en string limpio
+  // Generador central de SVG en string limpio (geometría conforme al Manual §2)
+  // Arte nativo en el espacio 202x250 del SVG maestro:
+  //   escudo x[36.5,165.3] y[12.7,171.9] · texto x[15.2,186.7] y[179,222.8] · año x[77.6,124.2] y[229.3,237.3]
+  const DARK_BGS = ['#026937', '#0F172A', '#70205B', '#000000'];
+
+  function isDarkHex(hex) {
+    const m = /^#([0-9a-f]{6})$/i.exec(String(hex || '').trim());
+    if (!m) return false;
+    const n = parseInt(m[1], 16);
+    const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    return ((0.2126 * r + 0.7152 * g + 0.0722 * b) / 255) < 0.35;
+  }
+
+  // Subtítulo de dependencia: 7740 C sobre fondos claros, blanco sobre oscuros (Manual §4)
+  function unitFill() {
+    const bg = studioState.bgColor;
+    if (bg && bg !== 'transparent' && (DARK_BGS.includes(bg) || isDarkHex(bg))) return '#FFFFFF';
+    return '#35944B';
+  }
+
+  // Tamaño del subtítulo según longitud para que siempre quepa (Times New Roman Bold)
+  function unitFontSize(text) {
+    const len = String(text || '').length;
+    if (len <= 24) return 27;
+    if (len <= 36) return 22;
+    return 18;
+  }
+
   function generateSVGString() {
     const pShield = window.UDEA_PATHS['escudo-emblema-horquillado'];
     const pMainText = window.UDEA_PATHS['texto-universidad-de-antioquia'];
@@ -668,73 +688,60 @@ function initLogoStudio() {
     const color = studioState.logoColor;
     const unit = studioState.unitText;
     const layout = studioState.layout;
+    const sub = unitFill();
+    const safeUnit = escapeXml(unit);
 
     if (layout === 'horizontal') {
-      // Disposición Horizontal Oficial:
-      // Escudo al lado izquierdo (alto ~140), Bloque tipográfico centrado a la derecha
+      // Horizontal oficial: escudo a la izquierda, bloque tipográfico a la derecha
+      // y dependencia centrada abajo respecto al logosímbolo completo (Manual §2.1).
       const hasUnit = unit && unit.length > 0;
-      const viewBoxWidth = hasUnit ? 540 : 480;
-      const viewBoxHeight = 150;
+      const fs = unitFontSize(unit);
 
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" width="${viewBoxWidth}" height="${viewBoxHeight}">
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 150" width="490" height="150">
+  <title>Logosímbolo horizontal UdeA${hasUnit ? ' — ' + safeUnit : ''}</title>
+  <desc>Escudo con horquillado de 1922 a la izquierda y leyenda UNIVERSIDAD DE ANTIOQUIA a la derecha${hasUnit ? ', con la dependencia ' + safeUnit + ' centrada en la parte inferior' : ''}.</desc>
   <style>
     .udea-fill { fill: ${color}; }
     .udea-subtext {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-size: 19px;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: ${fs}px;
       font-weight: 700;
-      letter-spacing: -0.01em;
-      fill: ${color};
+      text-anchor: middle;
+      fill: ${sub};
     }
   </style>
   <g id="marca-udea-horizontal" class="udea-fill">
     <!-- Emblema UdeA con Horquillado y Orla -->
-    <g transform="translate(-10, -5) scale(0.68)">
+    <g transform="translate(-21.9, -2.4) scale(0.82)">
       <path id="escudo-orla" fill-rule="evenodd" clip-rule="evenodd" d="${pShield}" />
-      <path id="ano-1803" fill-rule="evenodd" clip-rule="evenodd" d="${pYear}" />
     </g>
 
     <!-- Bloque Tipográfico Principal: UNIVERSIDAD DE ANTIOQUIA -->
-    <g transform="translate(42, -96) scale(0.72)">
+    <g transform="translate(110, -329.1) scale(1.95)">
       <path id="texto-universidad" fill-rule="evenodd" clip-rule="evenodd" d="${pMainText}" />
     </g>
 
     ${hasUnit ? `
-    <!-- Dependencia / Unidad Académica Institucional -->
-    <text x="156" y="94" class="udea-subtext">${escapeXml(unit)}</text>
+    <!-- Dependencia / Unidad Académica (Times Bold 7740 C, centrada) -->
+    <text x="245" y="134" class="udea-subtext">${safeUnit}</text>
     ` : ''}
   </g>
 </svg>`;
     } else if (layout === 'vertical') {
-      // Disposición Vertical Clásica Centrada
-      const hasUnit = unit && unit.length > 0;
-      const viewBoxWidth = 260;
-      const viewBoxHeight = hasUnit ? 300 : 265;
-
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" width="${viewBoxWidth}" height="${viewBoxHeight}">
+      // Vertical clásica: NUNCA lleva dependencia (Manual §2.2, uso solemne).
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 258" width="260" height="258">
+  <title>Logosímbolo vertical UdeA</title>
+  <desc>Escudo con horquillado de 1922 arriba, leyenda UNIVERSIDAD DE ANTIOQUIA centrada debajo y año fundacional 1803. Uso solemne, sin dependencias.</desc>
   <style>
     .udea-fill { fill: ${color}; }
-    .udea-subtext-center {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      text-anchor: middle;
-      fill: ${color};
-    }
   </style>
   <g id="marca-udea-vertical" class="udea-fill">
     <!-- Escudo, Tipografía Institucional y Año 1803 -->
-    <g transform="translate(29, 10) scale(1)">
+    <g transform="translate(29, 10)">
       <path id="escudo-orla" fill-rule="evenodd" clip-rule="evenodd" d="${pShield}" />
       <path id="texto-universidad" fill-rule="evenodd" clip-rule="evenodd" d="${pMainText}" />
       <path id="ano-1803" fill-rule="evenodd" clip-rule="evenodd" d="${pYear}" />
     </g>
-
-    ${hasUnit ? `
-    <!-- Subtítulo de Dependencia Centrado -->
-    <text x="130" y="278" class="udea-subtext-center">${escapeXml(unit)}</text>
-    ` : ''}
   </g>
 </svg>`;
     } else {
@@ -743,6 +750,8 @@ function initLogoStudio() {
       const viewBoxHeight = 250;
 
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" width="${viewBoxWidth}" height="${viewBoxHeight}">
+  <title>Emblema UdeA — sello heráldico</title>
+  <desc>Escudo ovalado con ancla, cinta de Medellín y blandones, orla de horquillado ornamental y año 1803. Sin leyendas.</desc>
   <style>
     .udea-fill { fill: ${color}; }
   </style>
@@ -755,7 +764,7 @@ function initLogoStudio() {
   }
 
   function escapeXml(unsafe) {
-    return unsafe.replace(/[<>&'"]/g, c => {
+    return String(unsafe ?? '').replace(/[<>&'"]/g, c => {
       switch (c) {
         case '<': return '&lt;';
         case '>': return '&gt;';
@@ -771,14 +780,26 @@ function initLogoStudio() {
     const svgCode = generateSVGString();
     container.innerHTML = svgCode;
 
+    // Alerta de contraste: logo y fondo del mismo bando = ilegible (Manual §4)
+    const darkLogo = isDarkHex(studioState.logoColor);
+    const bg = studioState.bgColor;
+    const darkBg = !!bg && bg !== 'transparent' && (DARK_BGS.includes(bg) || isDarkHex(bg));
+    const lowContrast = darkLogo === darkBg;
+    const statusDot = document.querySelector('#logo-studio .studio-status-dot');
+    if (statusDot) statusDot.style.backgroundColor = lowContrast ? '#F59E0B' : '#10B981';
+
     if (dimensionsLabel) {
+      let base;
       if (studioState.layout === 'horizontal') {
-        dimensionsLabel.textContent = `Horizontal Oficial · ${studioState.unitText || 'Universidad de Antioquia'}`;
+        base = `Horizontal Oficial · ${studioState.unitText || 'Universidad de Antioquia'}`;
       } else if (studioState.layout === 'vertical') {
-        dimensionsLabel.textContent = `Vertical Clásico · ${studioState.unitText || 'Universidad de Antioquia'}`;
+        base = 'Vertical Clásico · uso solemne (sin dependencia)';
       } else {
-        dimensionsLabel.textContent = `Emblema y Sello Ornamental UdeA (1803)`;
+        base = 'Emblema y Sello Ornamental UdeA (1803)';
       }
+      dimensionsLabel.textContent = lowContrast
+        ? `${base} · Contraste bajo: cambia el fondo o el color`
+        : base;
     }
   }
 
@@ -821,8 +842,7 @@ function initLogoStudio() {
       showToast('Generando PNG en alta resolución...');
       const svgString = generateSVGString();
       const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-      const URL = window.URL || window.webkitURL || window;
-      const blobURL = URL.createObjectURL(svgBlob);
+      const blobURL = window.URL.createObjectURL(svgBlob);
       const image = new Image();
 
       image.onload = () => {
@@ -841,7 +861,8 @@ function initLogoStudio() {
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
         canvas.toBlob(blob => {
-          const pngUrl = URL.createObjectURL(blob);
+          if (!blob) { showToast('No se pudo generar el PNG'); return; }
+          const pngUrl = window.URL.createObjectURL(blob);
           const link = document.createElement('a');
           const cleanName = (studioState.unitText || 'UdeA').toLowerCase().replace(/[^a-z0-9]/g, '_');
           link.download = `logo_udea_${studioState.layout}_${cleanName}_hd.png`;
@@ -849,11 +870,11 @@ function initLogoStudio() {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          URL.revokeObjectURL(pngUrl);
+          setTimeout(() => window.URL.revokeObjectURL(pngUrl), 4000);
           showToast('PNG de alta resolución descargado');
         }, 'image/png');
 
-        URL.revokeObjectURL(blobURL);
+        window.URL.revokeObjectURL(blobURL);
       };
 
       image.src = blobURL;
