@@ -169,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSandbox();
   setupExporter();
   setupTypeLab();
-  setupAgentKit();
   initLogoStudio();
 });
 
@@ -434,9 +433,18 @@ function setupExporter() {
   const tabs = document.querySelectorAll('.export-tab-btn');
   const codeBox = document.getElementById('export-code');
   const copyBtn = document.getElementById('copy-export-code');
+  const fileLabel = document.getElementById('export-filename');
+  const statsLabel = document.getElementById('export-stats');
   if (!tabs.length || !codeBox) return;
 
   const allColors = [...PALETTE_DATA.primary, ...PALETTE_DATA.secondary];
+
+  const fileNames = {
+    css: 'udea-tokens.css',
+    tailwind: 'tailwind.config.js',
+    scss: '_udea-tokens.scss',
+    json: 'udea-tokens.json'
+  };
 
   const codeGenerators = {
     css: () => {
@@ -484,7 +492,13 @@ function setupExporter() {
 
   function updateCode(format) {
     if (codeGenerators[format]) {
-      codeBox.textContent = codeGenerators[format]();
+      const text = codeGenerators[format]();
+      codeBox.textContent = text;
+      if (fileLabel) fileLabel.textContent = fileNames[format] || text;
+      if (statsLabel) {
+        const lines = text.split('\n').length;
+        statsLabel.textContent = `${lines} líneas · ${text.length} caracteres`;
+      }
     }
   }
 
@@ -498,36 +512,20 @@ function setupExporter() {
   });
 
   if (copyBtn) {
+    const label = copyBtn.querySelector('span');
     copyBtn.addEventListener('click', () => {
       copyToClipboard(codeBox.textContent);
+      copyBtn.classList.add('copied');
+      if (label) label.textContent = '¡Copiado!';
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        if (label) label.textContent = 'Copiar';
+      }, 1600);
     });
   }
 
   // Cargar CSS por defecto
   updateCode('css');
-}
-
-/* ==========================================================================
-   MÓDULO: KIT PARA AGENTES (copiar link + brief)
-   ========================================================================== */
-
-function setupAgentKit() {
-  const linkBtn = document.getElementById('btn-copy-agent-link');
-  const linkEl = document.getElementById('agent-link');
-  const briefBtn = document.getElementById('btn-copy-agent-brief');
-  const briefEl = document.getElementById('agent-brief');
-  if (linkBtn && linkEl) {
-    linkBtn.addEventListener('click', () => {
-      copyToClipboard(linkEl.textContent.trim());
-      showToast('Link para agentes copiado');
-    });
-  }
-  if (briefBtn && briefEl) {
-    briefBtn.addEventListener('click', () => {
-      copyToClipboard(briefEl.textContent.trim());
-      showToast('Brief para el agente copiado');
-    });
-  }
 }
 
 /* ==========================================================================

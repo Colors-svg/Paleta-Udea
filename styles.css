@@ -761,12 +761,16 @@ body {
   letter-spacing: 0.05em;
 }
 
-/* Exportador de Código */
+/* Exportador de Código — ventana de editor moderna */
 .export-tabs {
-  display: flex;
-  gap: 8px;
-  border-bottom: 1px solid var(--border-card);
-  padding-bottom: 12px;
+  display: inline-flex;
+  max-width: 100%;
+  gap: 4px;
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-card);
+  padding: 4px;
+  border-radius: 12px;
+  overflow-x: auto;
   margin-bottom: 16px;
 }
 
@@ -776,49 +780,130 @@ body {
   font-size: 13px;
   font-weight: 700;
   color: var(--text-muted);
-  padding: 6px 14px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.export-tab-btn:hover:not(.active) {
+  color: var(--text-main);
 }
 
 .export-tab-btn.active {
-  background-color: var(--udea-green-primary);
-  color: #FFFFFF;
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
 }
 
-.code-container {
-  position: relative;
-  background-color: #0F172A;
-  border-radius: 10px;
-  padding: 20px;
-  overflow-x: auto;
+.code-window {
+  background-color: #0B1220;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.28);
 }
 
-.code-container pre {
+.code-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px 10px 16px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.code-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.code-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.code-dots span:nth-child(1) { background-color: #F87171; }
+.code-dots span:nth-child(2) { background-color: #FBBF24; }
+.code-dots span:nth-child(3) { background-color: #34D399; }
+
+.code-filename {
+  flex: 1;
+  min-width: 0;
   font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 11.5px;
+  color: #94A3B8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.code-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #E2E8F0;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.code-copy:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.code-copy.copied {
+  background-color: rgba(52, 211, 153, 0.18);
+  border-color: rgba(52, 211, 153, 0.45);
+  color: #6EE7B7;
+}
+
+.code-body {
+  margin: 0;
+  padding: 18px;
+  max-height: 420px;
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.7;
   color: #E2E8F0;
 }
 
-.copy-code-btn {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  background-color: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
+.code-body::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-.copy-code-btn:hover {
-  background-color: rgba(255, 255, 255, 0.24);
+.code-body::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  border: 2px solid #0B1220;
+}
+
+.code-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: #64748B;
 }
 
 /* Footer Oficial */
@@ -1427,22 +1512,20 @@ img, svg {
   }
 
   .export-tabs {
-    overflow-x: auto;
     max-width: 100%;
   }
 
   .export-tab-btn {
-    white-space: nowrap;
-    flex-shrink: 0;
     min-height: 40px;
   }
 
-  .code-container {
-    padding: 56px 14px 14px 14px;
+  .code-body {
+    padding: 14px;
+    font-size: 12px;
   }
 
-  .code-container pre {
-    font-size: 11px;
+  .code-footer {
+    flex-wrap: wrap;
   }
 
   .page-footer {
@@ -1599,7 +1682,7 @@ img, svg {
 .export-tab-btn:focus-visible,
 .filter-btn:focus-visible,
 .format-pill:focus-visible,
-.copy-code-btn:focus-visible {
+.code-copy:focus-visible {
   outline: 2px solid var(--udea-green-primary);
   outline-offset: 2px;
 }
@@ -1798,88 +1881,5 @@ img, svg {
 
   .type-style.type-hero p {
     font-size: 40px;
-  }
-}
-
-/* ==========================================================================
-   KIT PARA AGENTES — link único + tabla canónica
-   ========================================================================== */
-
-.agent-link-box {
-  display: flex;
-  gap: 10px;
-  align-items: stretch;
-  background-color: var(--bg-surface-subtle);
-  border: 1px solid var(--border-card);
-  border-radius: 10px;
-  padding: 10px 10px 10px 16px;
-  margin-bottom: 16px;
-}
-
-.agent-link-box code {
-  flex: 1;
-  align-self: center;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--udea-green-primary);
-  overflow-wrap: anywhere;
-  min-width: 0;
-}
-
-.agent-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.agent-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.agent-table th,
-.agent-table td {
-  text-align: left;
-  padding: 8px 10px;
-  border-bottom: 1px solid var(--border-card);
-  vertical-align: top;
-}
-
-.agent-table tr:last-child th,
-.agent-table tr:last-child td {
-  border-bottom: none;
-}
-
-.agent-table th {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-  background-color: var(--bg-surface-subtle);
-}
-
-.agent-table td code {
-  font-family: var(--font-mono);
-  font-size: 11px;
-}
-
-.agent-table a {
-  color: var(--udea-green-primary);
-  font-weight: 700;
-  overflow-wrap: anywhere;
-}
-
-@media (max-width: 860px) {
-  .agent-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .agent-link-box {
-    flex-direction: column;
   }
 }

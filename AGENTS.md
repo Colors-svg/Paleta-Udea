@@ -43,8 +43,8 @@
 - **Manifiesto legible por máquinas** (colores, tipografías, geometría exacta de layouts y reglas):
   [`assets/brand-manifest.json`](assets/brand-manifest.json) · Índice rápido: [`llms.txt`](llms.txt).
   La página también expone esquema JSON-LD (`Organization`) en `index.html`.
-- **Kit de un solo link para agentes**: sección `#kit-agentes` en la página
-  (link `llms.txt` + brief copiable + tabla "qué archivo usar en cada caso").
+- **Kit de un solo link para agentes (solo repositorio, no va en la página)**:
+  `llms.txt` + `assets/brand-manifest.json` (tabla canónica incluida).
 - ⚠️ **Eliminados por no oficiales** (no usar aunque aparezcan en cachés):
   `assets/img/udea-simbolo-simplificado.svg`, `assets/img/udea-logo-horizontal.svg`,
   `assets/img/preview-board.png`. Ver `brand-manifest.json → deprecated`.

@@ -487,47 +487,6 @@
       </div>
     </section>
 
-    <!-- SECCIÓN: KIT PARA AGENTES IA (UN SOLO LINK) -->
-    <section class="content-section" id="kit-agentes">
-      <div class="section-headline">
-        <div class="badge-tag" style="margin-bottom: 8px;">KIT PARA AGENTES IA · UN SOLO LINK</div>
-        <h3>Pásale este link a tu agente</h3>
-        <p>Con este único enlace el agente entiende toda la identidad: colores, tipografías, vectores oficiales, geometría de layouts y reglas. Los archivos obsoletos fueron eliminados del repositorio.</p>
-      </div>
-
-      <div class="agent-link-box">
-        <code id="agent-link">https://colors-svg.github.io/Paleta-Udea/llms.txt</code>
-        <button class="btn btn-secondary" id="btn-copy-agent-link" type="button">Copiar link</button>
-      </div>
-
-      <div class="agent-grid">
-        <div>
-          <div class="preview-box-title" style="margin-bottom: 8px;">Brief listo para pegar</div>
-          <div class="code-container">
-            <button class="copy-code-btn" id="btn-copy-agent-brief">Copiar brief</button>
-            <pre><code id="agent-brief">Actúa con la identidad de la Universidad de Antioquia (UdeA).
-Lee primero https://colors-svg.github.io/Paleta-Udea/llms.txt y el manifiesto
-https://colors-svg.github.io/Paleta-Udea/assets/brand-manifest.json.
-Reglas: escudo solo en #026937/#FFFFFF/#0F172A; dependencias solo en
-horizontal, Times New Roman Bold #35944B; nunca deformes el escudo;
-no uses archivos fuera de la lista "canonical" del manifiesto.</code></pre>
-          </div>
-        </div>
-        <div>
-          <div class="preview-box-title" style="margin-bottom: 8px;">Qué archivo usar en cada caso</div>
-          <table class="agent-table">
-            <tr><th>Caso</th><th>Archivo canónico</th></tr>
-            <tr><td>Navbar, favicon, firma</td><td><a href="assets/logo-udea-logotipo.svg" download>logo-udea-logotipo.svg</a></td></tr>
-            <tr><td>Avatar, marca simplificada</td><td><a href="assets/logo-udea-simplificado.svg" download>logo-udea-simplificado.svg</a></td></tr>
-            <tr><td>Horizontal con dependencia</td><td>Estudio #logo-studio (SVG/PNG)</td></tr>
-            <tr><td>Sello / emblema completo</td><td><a href="assets/logo_universidad_de_antioquia.svg" download>logo_universidad_de_antioquia.svg</a></td></tr>
-            <tr><td>Versiones negativo / monotinta</td><td>Sufijos <code>-blanco</code> y <code>-negro</code></td></tr>
-          </table>
-          <p class="studio-note" style="margin-top: 8px;">Eliminados por no oficiales: <code>assets/img/udea-simbolo-simplificado.svg</code>, <code>assets/img/udea-logo-horizontal.svg</code> y <code>assets/img/preview-board.png</code>. Si un agente los menciona, están obsoletos.</p>
-        </div>
-      </div>
-    </section>
-
     <!-- SECCIÓN 4: EXPORTADOR DE TOKENS Y CÓDIGO -->
     <section class="content-section" id="export">
       <div class="section-headline">
@@ -535,16 +494,27 @@ no uses archivos fuera de la lista "canonical" del manifiesto.</code></pre>
         <p>Copia y pega la paleta completa en tu flujo de trabajo de Frontend (CSS, Tailwind CSS, SCSS o W3C Design Tokens).</p>
       </div>
 
-      <div class="export-tabs">
-        <button class="export-tab-btn active" data-format="css">CSS Custom Properties</button>
-        <button class="export-tab-btn" data-format="tailwind">Tailwind Config</button>
-        <button class="export-tab-btn" data-format="scss">SCSS Variables</button>
-        <button class="export-tab-btn" data-format="json">JSON Tokens (W3C)</button>
+      <div class="export-tabs" role="tablist">
+        <button class="export-tab-btn active" data-format="css" role="tab">CSS Custom Properties</button>
+        <button class="export-tab-btn" data-format="tailwind" role="tab">Tailwind Config</button>
+        <button class="export-tab-btn" data-format="scss" role="tab">SCSS Variables</button>
+        <button class="export-tab-btn" data-format="json" role="tab">JSON Tokens (W3C)</button>
       </div>
 
-      <div class="code-container">
-        <button class="copy-code-btn" id="copy-export-code">Copiar Código Completo</button>
-        <pre><code id="export-code">/* Cargando tokens... */</code></pre>
+      <div class="code-window">
+        <div class="code-header">
+          <div class="code-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          <span class="code-filename" id="export-filename">udea-tokens.css</span>
+          <button class="code-copy" id="copy-export-code" type="button">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+        <pre class="code-body"><code id="export-code">/* Cargando tokens... */</code></pre>
+        <div class="code-footer">
+          <span id="export-stats">—</span>
+          <span>UTF-8 · listo para pegar</span>
+        </div>
       </div>
     </section>
 

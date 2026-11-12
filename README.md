@@ -107,9 +107,9 @@ Este repositorio incluye las herramientas oficiales y trazados maestros del escu
 5. **Logotipo y simplificado (generados en VectorCraft, texto a trazos)**:
    `assets/logo-udea-logotipo.svg` y `assets/logo-udea-simplificado.svg`
    (variantes `-blanco` y `-negro` para negativo/monotinta).
-6. **Kit para agentes (un solo link)**: sección `#kit-agentes` en la página —
-   link `llms.txt`, brief copiable y tabla "qué archivo usar en cada caso".
-   Manifiesto máquina: [`assets/brand-manifest.json`](assets/brand-manifest.json).
+6. **Kit para agentes (solo en el repositorio, no en la página)**:
+   `llms.txt` (link único + brief) y `assets/brand-manifest.json`
+   (tabla canónica, colores, geometría y reglas).
 
 ---
 
