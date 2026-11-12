@@ -901,7 +901,7 @@ function initLogoStudio() {
 </svg>`;
     } else if (layout === 'shield') {
       // Disposición Emblema Solo (Sello Heráldico puro, año pegado al ornamento: no hay bloque UNIVERSIDAD debajo)
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 202 234" width="202" height="234">
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 202 230" width="202" height="230">
   <title>Emblema UdeA — sello heráldico</title>
   <desc>Escudo ovalado con ancla, cinta de Medellín y blandones, orla de horquillado ornamental y año 1803. Sin leyendas.</desc>
   <style>
@@ -909,7 +909,7 @@ function initLogoStudio() {
   </style>
   <g id="emblema-udea-solo" class="udea-fill">
     <path id="escudo-orla-horquillado" fill-rule="evenodd" clip-rule="evenodd" d="${pShield}" />
-    <g transform="translate(0, -18)">
+    <g transform="translate(0, -26)">
       <path id="ano-1803" fill-rule="evenodd" clip-rule="evenodd" d="${pYear}" />
     </g>
   </g>

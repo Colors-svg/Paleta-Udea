@@ -53,8 +53,8 @@
     },
     "shield": {
       "rule": "Sello heráldico puro, sin leyendas. Año acercado al óvalo.",
-      "viewBox": "0 0 202 234",
-      "paths": ["escudo-emblema-horquillado", "texto-ano-1803 (translate(0,-18))"]
+      "viewBox": "0 0 202 230",
+      "paths": ["escudo-emblema-horquillado", "texto-ano-1803 (translate(0,-26))"]
     },
     "simple": {
       "rule": "Marca simplificada UdeA (Roboto Slab Bold). Avatares y espacios reducidos, sin dependencias.",
