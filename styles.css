@@ -809,10 +809,10 @@ body {
 .code-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px 10px 16px;
-  background-color: rgba(255, 255, 255, 0.04);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 12px;
+  padding: 12px 12px 12px 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 .code-dots {
@@ -845,27 +845,42 @@ body {
 .code-copy {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #E2E8F0;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 11.5px;
-  font-weight: 700;
+  gap: 7px;
+  background-color: #FFFFFF;
+  border: none;
+  color: #0F172A;
+  padding: 8px 16px 8px 13px;
+  border-radius: 9px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+  min-height: 36px;
+}
+
+.code-copy svg {
+  display: block;
   flex-shrink: 0;
 }
 
 .code-copy:hover {
-  background-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  background-color: #F1F5F9;
+}
+
+.code-copy:active {
+  transform: translateY(0);
 }
 
 .code-copy.copied {
-  background-color: rgba(52, 211, 153, 0.18);
-  border-color: rgba(52, 211, 153, 0.45);
-  color: #6EE7B7;
+  background-color: #026937;
+  color: #FFFFFF;
+  box-shadow: 0 2px 10px rgba(2, 105, 55, 0.5);
 }
 
 .code-body {
