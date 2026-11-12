@@ -57,6 +57,19 @@
       "paths": ["escudo-emblema-horquillado", "texto-ano-1803"]
     }
   },
+  "canonical": {
+    "navbar_favicon_firma": "assets/logo-udea-logotipo.svg",
+    "avatar_simplificado": "assets/logo-udea-simplificado.svg",
+    "horizontal_con_dependencia": "Estudio #logo-studio (exporta SVG/PNG)",
+    "sello_emblema": "assets/logo_universidad_de_antioquia.svg",
+    "negativo_monotinta": "mismo nombre con sufijos -blanco y -negro",
+    "tipografia_lab": "index.html#tipografia"
+  },
+  "deprecated": [
+    { "file": "assets/img/udea-simbolo-simplificado.svg", "reason": "No es vector oficial: era solo texto vivo dependiente de la fuente. Usar assets/logo-udea-simplificado.svg.", "removed": "2026-11-12" },
+    { "file": "assets/img/udea-logo-horizontal.svg", "reason": "Escudo inventado, dependencia CIC quemada y desborde de viewBox. Usar el Estudio #logo-studio.", "removed": "2026-11-12" },
+    { "file": "assets/img/preview-board.png", "reason": "Sin referencias, peso muerto (1.3 MB).", "removed": "2026-11-12" }
+  ],
   "rules": [
     "Nunca deformar el escudo ni alterar su proporción.",
     "El escudo solo puede ir en #026937 (claros), #FFFFFF (oscuros) o #0F172A (monotinta). Prohibidos otros colores, degradados y combinaciones.",

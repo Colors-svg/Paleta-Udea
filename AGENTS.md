@@ -34,11 +34,20 @@
 - **SVG Oficial con Horquillado de 1922 (Ultra Alta Fidelidad)**:
   `assets/logo_universidad_de_antioquia.svg`
   (color por defecto `#026937`; sobrescribir con la variable CSS `--udea-color`).
+- **Logotipo tipográfico (Times New Roman Bold, texto convertido a trazos)**:
+  `assets/logo-udea-logotipo.svg` (variantes `-blanco`, `-negro`).
+- **Marca simplificada UdeA (Roboto Slab Bold, trazos)**:
+  `assets/logo-udea-simplificado.svg` (variantes `-blanco`, `-negro`).
 - **Diccionario de Coordenadas de Trazos para Renderizado Programático**:
   `assets/udea-paths.js` (`window.UDEA_PATHS['escudo-emblema-horquillado']`, etc.)
 - **Manifiesto legible por máquinas** (colores, tipografías, geometría exacta de layouts y reglas):
   [`assets/brand-manifest.json`](assets/brand-manifest.json) · Índice rápido: [`llms.txt`](llms.txt).
   La página también expone esquema JSON-LD (`Organization`) en `index.html`.
+- **Kit de un solo link para agentes**: sección `#kit-agentes` en la página
+  (link `llms.txt` + brief copiable + tabla "qué archivo usar en cada caso").
+- ⚠️ **Eliminados por no oficiales** (no usar aunque aparezcan en cachés):
+  `assets/img/udea-simbolo-simplificado.svg`, `assets/img/udea-logo-horizontal.svg`,
+  `assets/img/preview-board.png`. Ver `brand-manifest.json → deprecated`.
 
 ---
 

@@ -6,7 +6,10 @@
   <title>Sistema Cromático Institucional — Universidad de Antioquia (UdeA)</title>
   <meta name="description" content="Manual de especificación técnica de color, correspondencia Pantone PMS, fórmulas digitales sRGB, valores de impresión CMYK y tokens de diseño para la Universidad de Antioquia.">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/svg+xml" href="assets/img/udea-simbolo-simplificado.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/logo_universidad_de_antioquia.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&family=Roboto:wght@400;500;700&display=swap">
   <link rel="alternate" type="application/json" title="Manifiesto de marca legible por máquinas (colores, logos, reglas)" href="assets/brand-manifest.json">
   <script type="application/ld+json">
   {
@@ -30,7 +33,7 @@
   <nav class="navbar">
     <div class="navbar-container">
       <a href="#" class="navbar-brand">
-        <img src="assets/img/udea-simbolo-simplificado.svg" alt="Escudo UdeA" class="navbar-logo">
+        <img src="assets/logo_universidad_de_antioquia.svg" alt="Escudo UdeA" class="navbar-logo">
         <div class="navbar-titles">
           <span class="navbar-title">Universidad de Antioquia</span>
           <span class="navbar-subtitle">Sistema de Identidad Visual · Manual de Color</span>
@@ -45,6 +48,10 @@
         <a href="#sandbox" class="btn btn-secondary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
           <span class="btn-label">Simulador UI</span>
+        </a>
+        <a href="#tipografia" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+          <span class="btn-label">Tipografía</span>
         </a>
         <a href="#export" class="btn btn-secondary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
@@ -280,6 +287,30 @@
             </div>
           </div>
 
+          <!-- Control 3b: Recomendados institucionales + color personalizado -->
+          <div class="studio-group">
+            <div class="studio-label-row">
+              <label class="studio-label">Recomendados institucionales</label>
+              <span class="studio-color-tag" id="studio-custom-flag">Normativo</span>
+            </div>
+            <div class="studio-palette-chips studio-reco-chips" id="studio-reco-colors">
+              <!-- Se inyectan los 12 tonos oficiales -->
+            </div>
+          </div>
+
+          <div class="studio-group">
+            <label class="studio-label">
+              <span>Explorar color personalizado</span>
+              <span class="studio-hint">Experimental · fuera de norma §4</span>
+            </label>
+            <div class="studio-custom-row">
+              <input type="color" id="studio-custom-picker" class="studio-color-input" value="#026937" title="Elegir color personalizado">
+              <input type="text" id="studio-custom-hex" class="studio-input studio-hex-input" value="#026937" maxlength="7" spellcheck="false" autocomplete="off">
+              <button id="studio-custom-apply" class="btn btn-secondary" type="button">Aplicar</button>
+            </div>
+            <p class="studio-note">Los colores fuera de la norma sirven para <strong>explorar</strong>, no para pieza oficial. El subtítulo de dependencia siempre conserva su color normativo.</p>
+          </div>
+
           <!-- Control 4: Fondo del Lienzo -->
           <div class="studio-group">
             <div class="studio-label-row">
@@ -343,6 +374,157 @@
             <span>Heráldica institucional protegida · Grabado de Horacio Rodríguez (1922) · Trazo de alta fidelidad</span>
           </div>
         </main>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: TIPOGRAFÍA INSTITUCIONAL (ESPECÍMENES + LABORATORIO) -->
+    <section class="content-section" id="tipografia">
+      <div class="section-headline">
+        <div class="badge-tag" style="margin-bottom: 8px;">SISTEMA TIPOGRÁFICO · MANUAL V8 · P.12–17</div>
+        <h3>Tipografía Institucional y Laboratorio de Tamaños</h3>
+        <p>Familias oficiales del Manual de Identidad (páginas 12 a 17). Experimenta con cuerpo, peso e interlineado antes de llevarlos a pieza.</p>
+      </div>
+
+      <div class="type-grid">
+        <article class="type-card">
+          <div class="type-card-head">
+            <h4>Times New Roman</h4>
+            <span class="type-tag type-tag-must">Institucional · Logotipo y dependencias</span>
+          </div>
+          <p class="type-use">Logotipo <strong>UNIVERSIDAD DE ANTIOQUIA</strong>, nombres de facultades, resoluciones y diplomas.</p>
+          <div class="type-styles">
+            <div class="type-style" style="font-family:'Times New Roman',Times,serif;font-weight:400;"><span>Regular</span><p>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñpqrstuvwxyz 1234567890</p></div>
+            <div class="type-style" style="font-family:'Times New Roman',Times,serif;font-style:italic;"><span>Italic</span><p>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñpqrstuvwxyz 1234567890</p></div>
+            <div class="type-style" style="font-family:'Times New Roman',Times,serif;font-weight:700;"><span>Bold</span><p>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñpqrstuvwxyz 1234567890</p></div>
+            <div class="type-style" style="font-family:'Times New Roman',Times,serif;font-weight:700;font-style:italic;"><span>Bold Italic</span><p>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñpqrstuvwxyz 1234567890</p></div>
+          </div>
+        </article>
+
+        <article class="type-card">
+          <div class="type-card-head">
+            <h4>Roboto Slab <span class="type-weight-note">Bold</span></h4>
+            <span class="type-tag type-tag-must">Marca simplificada UdeA</span>
+          </div>
+          <p class="type-use">Solo para <strong>UdeA</strong> (U y A mayúsculas, “de” minúscula). <a href="assets/logo-udea-simplificado.svg" download>Descargar vector</a>.</p>
+          <div class="type-styles">
+            <div class="type-style type-hero" style="font-family:'Roboto Slab','Rockwell',Georgia,serif;font-weight:700;"><span>Bold · UdeA</span><p>UdeA</p></div>
+          </div>
+        </article>
+
+        <article class="type-card">
+          <div class="type-card-head">
+            <h4>DIN · Roboto</h4>
+            <span class="type-tag">Titulares y digital</span>
+          </div>
+          <p class="type-use">DIN Black/Alternate (campañas), DIN Medium/Light y Roboto para párrafos, interfaces y subtítulos web.</p>
+          <div class="type-styles">
+            <div class="type-style" style="font-family:'DIN Alternate','DIN Condensed',Roboto,'Segoe UI',sans-serif;font-weight:700;"><span>DIN Black/Alternate</span><p>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñpqrstuvwxyz 1234567890</p></div>
+            <div class="type-style" style="font-family:Roboto,'Segoe UI',sans-serif;font-weight:500;"><span>Roboto Medium</span><p>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñpqrstuvwxyz 1234567890</p></div>
+            <div class="type-style" style="font-family:Roboto,'Segoe UI',sans-serif;font-weight:400;"><span>Roboto Regular</span><p>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñpqrstuvwxyz 1234567890</p></div>
+          </div>
+        </article>
+
+        <article class="type-card">
+          <div class="type-card-head">
+            <h4>Playfair Display · The Serif</h4>
+            <span class="type-tag">Editorial</span>
+          </div>
+          <p class="type-use">Periódico Alma Mater, libros de la Editorial UdeA y revistas científicas.</p>
+          <div class="type-styles">
+            <div class="type-style" style="font-family:'Playfair Display',Georgia,serif;"><span>Playfair Display</span><p>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñpqrstuvwxyz 1234567890</p></div>
+            <div class="type-style" style="font-family:'The Serif',Georgia,serif;"><span>The Serif</span><p>ABCDEFGHIJKLMNÑOPQRSTUVWXYZ abcdefghijklmnñpqrstuvwxyz 1234567890</p></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="type-lab">
+        <aside class="type-lab-controls">
+          <div class="studio-group">
+            <label class="studio-label" for="typelab-family"><span>Familia</span></label>
+            <select id="typelab-family" class="studio-select">
+              <option value="'Times New Roman',Times,serif">Times New Roman</option>
+              <option value="'Roboto Slab','Rockwell',Georgia,serif">Roboto Slab</option>
+              <option value="Roboto,'Segoe UI',sans-serif">Roboto</option>
+              <option value="'DIN Alternate','DIN Condensed',Roboto,sans-serif">DIN Alternate</option>
+              <option value="'Playfair Display',Georgia,serif">Playfair Display</option>
+              <option value="'The Serif',Georgia,serif">The Serif</option>
+            </select>
+          </div>
+          <div class="studio-group">
+            <label class="studio-label" for="typelab-weight"><span>Peso / estilo</span></label>
+            <select id="typelab-weight" class="studio-select">
+              <option value="400-normal">Regular</option>
+              <option value="400-italic">Italic</option>
+              <option value="700-normal">Bold</option>
+              <option value="700-italic">Bold Italic</option>
+            </select>
+          </div>
+          <div class="studio-group">
+            <div class="studio-label-row">
+              <label class="studio-label" for="typelab-size">Cuerpo</label>
+              <span class="studio-color-tag" id="typelab-size-val">48px</span>
+            </div>
+            <input type="range" id="typelab-size" class="type-range" min="12" max="120" value="48">
+          </div>
+          <div class="studio-group">
+            <div class="studio-label-row">
+              <label class="studio-label" for="typelab-leading">Interlineado</label>
+              <span class="studio-color-tag" id="typelab-leading-val">1.2</span>
+            </div>
+            <input type="range" id="typelab-leading" class="type-range" min="100" max="200" value="120">
+          </div>
+          <div class="studio-group">
+            <label class="studio-label" for="typelab-text"><span>Texto de prueba</span></label>
+            <input type="text" id="typelab-text" class="studio-input" value="Universidad de Antioquia" maxlength="80">
+          </div>
+        </aside>
+        <div class="type-lab-stage">
+          <div class="studio-stage-toolbar">
+            <div class="studio-stage-meta"><span class="studio-status-dot"></span><span id="typelab-readout">48px · Regular · 1.2</span></div>
+          </div>
+          <div class="type-lab-preview" id="typelab-preview">Universidad de Antioquia</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: KIT PARA AGENTES IA (UN SOLO LINK) -->
+    <section class="content-section" id="kit-agentes">
+      <div class="section-headline">
+        <div class="badge-tag" style="margin-bottom: 8px;">KIT PARA AGENTES IA · UN SOLO LINK</div>
+        <h3>Pásale este link a tu agente</h3>
+        <p>Con este único enlace el agente entiende toda la identidad: colores, tipografías, vectores oficiales, geometría de layouts y reglas. Los archivos obsoletos fueron eliminados del repositorio.</p>
+      </div>
+
+      <div class="agent-link-box">
+        <code id="agent-link">https://colors-svg.github.io/Paleta-Udea/llms.txt</code>
+        <button class="btn btn-secondary" id="btn-copy-agent-link" type="button">Copiar link</button>
+      </div>
+
+      <div class="agent-grid">
+        <div>
+          <div class="preview-box-title" style="margin-bottom: 8px;">Brief listo para pegar</div>
+          <div class="code-container">
+            <button class="copy-code-btn" id="btn-copy-agent-brief">Copiar brief</button>
+            <pre><code id="agent-brief">Actúa con la identidad de la Universidad de Antioquia (UdeA).
+Lee primero https://colors-svg.github.io/Paleta-Udea/llms.txt y el manifiesto
+https://colors-svg.github.io/Paleta-Udea/assets/brand-manifest.json.
+Reglas: escudo solo en #026937/#FFFFFF/#0F172A; dependencias solo en
+horizontal, Times New Roman Bold #35944B; nunca deformes el escudo;
+no uses archivos fuera de la lista "canonical" del manifiesto.</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="preview-box-title" style="margin-bottom: 8px;">Qué archivo usar en cada caso</div>
+          <table class="agent-table">
+            <tr><th>Caso</th><th>Archivo canónico</th></tr>
+            <tr><td>Navbar, favicon, firma</td><td><a href="assets/logo-udea-logotipo.svg" download>logo-udea-logotipo.svg</a></td></tr>
+            <tr><td>Avatar, marca simplificada</td><td><a href="assets/logo-udea-simplificado.svg" download>logo-udea-simplificado.svg</a></td></tr>
+            <tr><td>Horizontal con dependencia</td><td>Estudio #logo-studio (SVG/PNG)</td></tr>
+            <tr><td>Sello / emblema completo</td><td><a href="assets/logo_universidad_de_antioquia.svg" download>logo_universidad_de_antioquia.svg</a></td></tr>
+            <tr><td>Versiones negativo / monotinta</td><td>Sufijos <code>-blanco</code> y <code>-negro</code></td></tr>
+          </table>
+          <p class="studio-note" style="margin-top: 8px;">Eliminados por no oficiales: <code>assets/img/udea-simbolo-simplificado.svg</code>, <code>assets/img/udea-logo-horizontal.svg</code> y <code>assets/img/preview-board.png</code>. Si un agente los menciona, están obsoletos.</p>
+        </div>
       </div>
     </section>
 

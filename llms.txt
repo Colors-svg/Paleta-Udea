@@ -18,9 +18,15 @@
   (renders programáticos sin cargar el SVG).
 - `Paleta-Udea/index.html#logo-studio` — estudio interactivo que genera las 3 composiciones oficiales.
 
+- `Paleta-Udea/index.html#tipografia` — especímenes oficiales y laboratorio de tamaños.
+- `Paleta-Udea/index.html#kit-agentes` — link único + brief copiable + tabla "qué archivo usar".
+
 ## Reglas críticas (no negociables)
 
 1. Escudo solo en `#026937`, `#FFFFFF` (fondos oscuros) o `#0F172A` (monotinta).
 2. Dependencias (Facultades…) SOLO en versión horizontal, centradas abajo,
    `Times New Roman Bold`, color `#35944B`. Nunca en la vertical, nunca en sans-serif.
-3. Nunca deformar el escudo ni alterar sus proporciones.
+3. Nunca deformar el escudo ni alterar sus proporciones. No usar archivos fuera de
+   la lista "canonical" del manifiesto. Obsoletos y eliminados:
+   `assets/img/udea-simbolo-simplificado.svg`, `assets/img/udea-logo-horizontal.svg`,
+   `assets/img/preview-board.png`.

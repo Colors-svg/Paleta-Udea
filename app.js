@@ -168,6 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupQuickFormat();
   setupSandbox();
   setupExporter();
+  setupTypeLab();
+  setupAgentKit();
   initLogoStudio();
 });
 
@@ -506,6 +508,69 @@ function setupExporter() {
 }
 
 /* ==========================================================================
+   MÓDULO: KIT PARA AGENTES (copiar link + brief)
+   ========================================================================== */
+
+function setupAgentKit() {
+  const linkBtn = document.getElementById('btn-copy-agent-link');
+  const linkEl = document.getElementById('agent-link');
+  const briefBtn = document.getElementById('btn-copy-agent-brief');
+  const briefEl = document.getElementById('agent-brief');
+  if (linkBtn && linkEl) {
+    linkBtn.addEventListener('click', () => {
+      copyToClipboard(linkEl.textContent.trim());
+      showToast('Link para agentes copiado');
+    });
+  }
+  if (briefBtn && briefEl) {
+    briefBtn.addEventListener('click', () => {
+      copyToClipboard(briefEl.textContent.trim());
+      showToast('Brief para el agente copiado');
+    });
+  }
+}
+
+/* ==========================================================================
+   MÓDULO: LABORATORIO TIPOGRÁFICO
+   ========================================================================== */
+
+function setupTypeLab() {
+  const family = document.getElementById('typelab-family');
+  const weight = document.getElementById('typelab-weight');
+  const size = document.getElementById('typelab-size');
+  const leading = document.getElementById('typelab-leading');
+  const text = document.getElementById('typelab-text');
+  const preview = document.getElementById('typelab-preview');
+  const readout = document.getElementById('typelab-readout');
+  const sizeVal = document.getElementById('typelab-size-val');
+  const leadingVal = document.getElementById('typelab-leading-val');
+  if (!family || !preview) return;
+
+  const WEIGHT_NAMES = { '400-normal': 'Regular', '400-italic': 'Italic', '700-normal': 'Bold', '700-italic': 'Bold Italic' };
+
+  function render() {
+    const [w, st] = (weight.value || '400-normal').split('-');
+    const px = parseInt(size.value, 10) || 48;
+    const lh = (parseInt(leading.value, 10) || 120) / 100;
+    preview.style.fontFamily = family.value;
+    preview.style.fontWeight = w;
+    preview.style.fontStyle = st;
+    preview.style.fontSize = px + 'px';
+    preview.style.lineHeight = String(lh);
+    preview.textContent = (text.value || '').trim() || 'Universidad de Antioquia';
+    const famShort = family.options[family.selectedIndex].textContent;
+    const label = `${px}px · ${WEIGHT_NAMES[weight.value] || ''} · ${lh} · ${famShort}`;
+    if (readout) readout.textContent = label;
+    if (sizeVal) sizeVal.textContent = px + 'px';
+    if (leadingVal) leadingVal.textContent = String(lh);
+  }
+
+  [family, weight, size, leading].forEach(el => el && el.addEventListener('input', render));
+  if (text) text.addEventListener('input', render);
+  render();
+}
+
+/* ==========================================================================
    MÓDULO: ESTUDIO VECTORIAL Y PERSONALIZADOR DE MARCA UDEA
    ========================================================================== */
 
@@ -529,6 +594,11 @@ function initLogoStudio() {
   const customInput = document.getElementById('studio-custom-text');
   const subtextGroup = document.getElementById('studio-subtext-group');
   const paletteChipsContainer = document.getElementById('studio-logo-colors');
+  const recoChipsContainer = document.getElementById('studio-reco-colors');
+  const customPicker = document.getElementById('studio-custom-picker');
+  const customHex = document.getElementById('studio-custom-hex');
+  const customApply = document.getElementById('studio-custom-apply');
+  const customFlag = document.getElementById('studio-custom-flag');
   const bgChips = document.querySelectorAll('.studio-bg-chip');
   const currentColorHex = document.getElementById('studio-current-color-hex');
   const currentBgHex = document.getElementById('studio-current-bg-hex');
@@ -544,6 +614,44 @@ function initLogoStudio() {
     { name: 'Negro Grafito (monotinta / escala de grises)', hex: '#0F172A' }
   ];
 
+  // Colores normativos del escudo (Manual §4). Todo lo demás = experimental.
+  const NORMATIVE_HEX = ['#026937', '#FFFFFF', '#0F172A'];
+
+  function isNormative(hex) {
+    return NORMATIVE_HEX.includes(String(hex || '').toUpperCase());
+  }
+
+  function normalizeHex(raw) {
+    let h = String(raw || '').trim();
+    if (!h.startsWith('#')) h = '#' + h;
+    const m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(h);
+    if (!m) return null;
+    if (m[1].length === 3) h = '#' + m[1].split('').map(c => c + c).join('');
+    return h.toUpperCase();
+  }
+
+  function markActiveChip(container, chip) {
+    document.querySelectorAll('.studio-color-chip').forEach(c => c.classList.remove('active'));
+    if (chip) chip.classList.add('active');
+  }
+
+  function applyLogoColor(hex, chip) {
+    studioState.logoColor = hex;
+    if (currentColorHex) currentColorHex.textContent = hex;
+    if (customPicker) customPicker.value = hex;
+    if (customHex) customHex.value = hex;
+    markActiveChip(null, chip);
+    updateNormFlag(hex);
+    renderStudioSVG();
+  }
+
+  function updateNormFlag(hex) {
+    if (!customFlag) return;
+    const ok = isNormative(hex);
+    customFlag.textContent = ok ? 'Normativo' : 'Experimental';
+    customFlag.classList.toggle('is-experimental', !ok);
+  }
+
   if (paletteChipsContainer) {
     paletteChipsContainer.innerHTML = '';
     studioColors.forEach((col, idx) => {
@@ -555,16 +663,54 @@ function initLogoStudio() {
       chip.setAttribute('data-hex', col.hex);
 
       chip.addEventListener('click', () => {
-        document.querySelectorAll('.studio-color-chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        studioState.logoColor = col.hex;
-        if (currentColorHex) currentColorHex.textContent = col.hex;
-        renderStudioSVG();
+        applyLogoColor(col.hex, chip);
       });
 
       paletteChipsContainer.appendChild(chip);
     });
   }
+
+  // Recomendados: los 12 tonos oficiales (solo 349 C es normativo para el escudo)
+  if (recoChipsContainer && typeof PALETTE_DATA !== 'undefined') {
+    recoChipsContainer.innerHTML = '';
+    [...PALETTE_DATA.primary, ...PALETTE_DATA.secondary].forEach(col => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'studio-color-chip';
+      chip.style.backgroundColor = col.hex;
+      if (col.hex === '#FFFFFF') chip.style.border = '1px solid #CBD5E1';
+      chip.title = `${col.name} (${col.code} · ${col.hex})`;
+      chip.setAttribute('data-hex', col.hex);
+      chip.addEventListener('click', () => applyLogoColor(col.hex, chip));
+      recoChipsContainer.appendChild(chip);
+    });
+  }
+
+  // Color personalizado: picker en vivo + campo HEX con validación
+  if (customPicker) {
+    customPicker.addEventListener('input', () => {
+      applyLogoColor(customPicker.value.toUpperCase(), null);
+    });
+  }
+
+  if (customApply) {
+    customApply.addEventListener('click', () => {
+      const hex = normalizeHex(customHex ? customHex.value : '');
+      if (!hex) {
+        showToast('HEX inválido. Ejemplo válido: #F9A12C');
+        return;
+      }
+      applyLogoColor(hex, null);
+    });
+  }
+
+  if (customHex) {
+    customHex.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && customApply) customApply.click();
+    });
+  }
+
+  updateNormFlag(studioState.logoColor);
 
   // Cambio de Layout
   layoutButtons.forEach(btn => {
@@ -800,6 +946,9 @@ function initLogoStudio() {
       dimensionsLabel.textContent = lowContrast
         ? `${base} · Contraste bajo: cambia el fondo o el color`
         : base;
+      if (!isNormative(studioState.logoColor)) {
+        dimensionsLabel.textContent += ' · Experimental (fuera de norma §4)';
+      }
     }
   }
 
