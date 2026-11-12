@@ -828,12 +828,11 @@ function initLogoStudio() {
     return '#35944B';
   }
 
-  // Tamaño del subtítulo: cabe siempre en la franja del bloque tipográfico (140–480)
+  // Tamaño del subtítulo: 75% del ancho del bloque de marca (140–474 = 334 → máx 250)
   function unitFontSize(text) {
     const len = String(text || '').length;
-    const base = len <= 24 ? 27 : len <= 36 ? 22 : 18;
-    const fit = 340 / (0.52 * Math.max(len, 1));
-    return Math.max(13, Math.min(base, Math.floor(fit)));
+    const fit = 250 / (0.52 * Math.max(len, 1));
+    return Math.max(12, Math.min(27, Math.floor(fit)));
   }
 
   function generateSVGString() {

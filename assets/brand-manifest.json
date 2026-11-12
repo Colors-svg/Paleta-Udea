@@ -43,7 +43,7 @@
       "shield": { "transform": "translate(-21.9, -2.4) scale(0.82)", "path": "escudo-emblema-horquillado" },
       "wordmark": { "transform": "translate(110, -329.1) scale(1.95)", "path": "texto-universidad-de-antioquia" },
       "year": null,
-      "unit": { "x": 307, "y": 134, "anchor": "middle", "font": "Times New Roman Bold", "sizes": { "default": 27, "medium": 22, "long": 18, "min": 13 }, "maxWidth": 340, "colorLightBg": "#35944B (normativo) o color del tema si es personalizado", "colorDarkBg": "#FFFFFF" }
+      "unit": { "x": 307, "y": 134, "anchor": "middle", "font": "Times New Roman Bold", "width": "75% del bloque de marca (máx 250u)", "min": 12, "max": 27, "colorLightBg": "#35944B (normativo) o color del tema si es personalizado", "colorDarkBg": "#FFFFFF" }
     },
     "vertical": {
       "rule": "Uso solemne. PROHIBIDO colocar dependencias debajo.",
